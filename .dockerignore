@@ -1,0 +1,9 @@
+.git
+.idea
+.vscode
+**/bin
+**/obj
+TestResults
+.env
+.DS_Store
+draft

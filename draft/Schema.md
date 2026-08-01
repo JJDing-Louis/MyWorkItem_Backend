@@ -26,7 +26,7 @@ erDiagram
        bit(1)        IsEnable
     }
 
-    UserFunction{
+    RoleFunction{
        varchar(200)  RoleID PK
        varchar(200)  FunctionID PK
        bit(1)        IsEnable
