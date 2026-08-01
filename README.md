@@ -27,6 +27,18 @@ MyWorkItem Backend 是以 .NET 10 建立的 ASP.NET Core Web API。登入使用�
 | DB ERD 與 Table Schema | [database/Schema.md](database/Schema.md) |
 | DB Migration | [src/MyWorkItem.DatabaseMigrator/Scripts](src/MyWorkItem.DatabaseMigrator/Scripts) |
 
+## 前端串接狀態
+
+`MyWorkItem_FrontEnd` 已依 [API 規格](docs/API.md) 完成串接，涵蓋登入、Session 還原、
+Token Refresh、Work Item CRUD、批次確認、撤銷確認及 `rowversion` 併發更新。
+
+本機開發時先啟動本專案的 API（預設 `http://localhost:5080`），再於前端專案執行
+`npm run dev`。前端預設透過 Vite Proxy 將 `/api` 轉送至本 API；跨來源部署則必須
+同步設定前端 `VITE_API_BASE_URL` 與本專案的 `Cors:AllowedOrigins`。
+
+串接採 HttpOnly Cookie 保存 Access／Refresh Token。登入後前端會重新取得 CSRF Token，
+並在所有寫入請求附加 `X-CSRF-TOKEN` Header；前端路由限制不取代後端 Function 授權。
+
 ## 必要環境
 
 - .NET SDK 10
