@@ -1,63 +1,15 @@
-# AI Coding 題目 — B2E 類型：My Work Item
+# My Work Item 開發需求
 
-**Updated Date：2025/11/06**
-
-## 目的
-
-評估您在 .NET 環境下開發 Web 應用程式的能力，並觀察您如何在實際開發中運用 AI 工具提升效率。本任務將作為線上 Pair Programming 面試的主要內容；請先行閱讀並完成基本環境準備。
-
-## 面試期望
-
-面試當日，您將在視訊中開啟 IDE（建議 VS Code），與主管即時討論並實作本題；我們會觀察：
-
-- 需求理解與拆解、系統設計與技術選擇
-- 協作溝通與問題診斷／除錯
-- AI 工具應用（GitHub Copilot、Cursor…）
-
-## 題目說明
-
-請開發一個「My Work Item」Web 應用，展示您的後端邏輯與整體架構能力。
-
-為便於當場觀察互動與結果，需有可操作的使用者介面（UI），而非僅提供 API 規格或 Swagger 頁面。
-
-## 技術要求
-
-- 後端建議以 .NET／C# 實作。
-- 介面呈現需具備其中之一：
-  1. **前後端分離**：任一前端框架（React／Vue／Blazor 等）＋ .NET 後端 API。
-  2. **.NET MVC Razor**：以 MVC／Razor Page 呈現頁面，不需額外建立兩個站台。
-- 建議包含：基本資料存取、必要的 API 呼叫與錯誤處理。
-
-允許的三種參考形態（節錄）：
-
-- SPA（React／Vue／Blazor WASM）＋ .NET Web API
-- .NET MVC Razor 一體式專案（Controller + View + Service）
-- Hybrid：MVC 視圖為殼，前端以 HTMX／Fetch／AJAX 呼叫同站 API
-
-## AI 工具使用建議
-
-鼓勵展示 AI 輔助開發：
-
-- 用 Copilot／Cursor 生成 Controller、Service、ViewModel、測試骨架
-- 用 Copilot Chat／ChatGPT 協助 README、Swagger、設計稿初稿
-- 於面試中說明：何時採納／捨棄 AI 產出、如何驗證正確性
-
-## 開發建議
-
-1. **先設計後實作**：繪製 C4（Context／Container）或等價架構圖。
-2. **記錄設計決策**：簡述分層、資料流、例外處理與權衡。
-3. **測試思維**：說明您如何驗證關鍵功能（可為單元測試或可重現的手動步驟）。
-4. **主動澄清**：對需求不確定處，面試時與面試官確認。
-
-## 環境建置建議
-
-請於面試前完成基本可執行環境，以便直接進入討論與實作：
-
-- **可啟動的 .NET 專案**（MVC Razor 或前後端分離其一）
-- **已設定資料庫連線**（SQL Server／MongoDB／其他）
-- **已安裝 VS Code、GitHub Copilot**（或您慣用 AI 工具）
-
-不需事先做完所有功能，但需具備「**可啟動的環境**」與「**初步解法**」。
+# 開發技術需求
+1. 專案為ASP.NET Core Web API的專案
+2. 專案的登入權限要有JWT的登入設計
+3. 資料庫的ORM 要用Dapper搭配SqlKata的架構
+4. 權限的設計部分，一個帳號有多個角色，每個角色可以有多個Function的功能
+5. 撰寫測試案例時，請用Bogus產生模擬資料做單元測試
+6. 單元測試使用Nunit搭配FluentAssertions進行撰寫
+7. 需要DockerFile搭配MSSQL進行開發
+8. 資料庫Schema要進入版本控制
+9. WebAPI 要有CSRF的防護
 
 ## 產出物清單
 
@@ -68,23 +20,6 @@
 | API 規格 | Swagger／Postman（若有 API） |
 | DB 結構 | Table Schema 或 ERD 示意 |
 
-## ✅ Do／❌ Don’t（快速對齊）
-
-- ✅ 有頁面可互動，能走完整一條關鍵流程
-- ✅ 可說明 AI 產出如何被您審核與修正
-- ✅ 可展示除錯思路與查問題的步驟
-- ❌ 只有 Swagger／Postman、無任何頁面可操作
-- ❌ 僅貼範例原碼、無法啟動／無法示範
-
-## 評估重點
-
-架構設計｜AI 工具應用｜實作品質｜問題解決｜協作與表達
-
-我們看重的不只是程式碼，而是您如何整合 **AI × 架構 × 實作 × 協作** 來解決問題。
-
-準備本身，就是能力的一部分。
-
----
 
 # 需求
 
