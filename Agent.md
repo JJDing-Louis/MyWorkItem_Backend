@@ -4,9 +4,9 @@
 
 本文件適用於 `MyWorkItem_Backend` 目錄及其所有子目錄。
 
-目前 `dev2` 分支只有需求草圖與開發設定，尚未建立可建置的後端專案。建立方案、
-原始碼、Migration 或測試前，必須先完成需求與 Schema 審查，不得把規劃描述成已完成
-實作，也不得沿用其他分支未經確認的資料模型。
+`dev2` 已依使用者確認的 Schema V1.1 建立後端基線。後續修改必須以 `Draft/`、
+`specs/001-myworkitem-backend/`、DbUp Migration 與可執行測試互相核對，不得把未執行的
+驗證描述成已完成。
 
 ## 語言與文件
 
@@ -70,7 +70,8 @@ src/
 └── MyWorkItem.DatabaseMigrator/ # DbUp Migration 與環境種子資料
 tests/
 ├── MyWorkItem.UnitTests/
-└── MyWorkItem.IntegrationTests/
+├── MyWorkItem.IntegrationTests/
+└── MyWorkItem.WorkflowTests/
 ```
 
 - 相依方向以 Domain 為核心；Application 不依賴 Infrastructure。
