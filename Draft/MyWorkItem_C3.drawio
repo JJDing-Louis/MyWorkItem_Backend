@@ -1,1 +1,340 @@
-<mxfile host="12kjjs7dvicrve3vg940b4fqjggeg8ns2bonms6ppk7ob2aa25oi" modified="2026-08-02T13:43:52.665Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.131.0 Chrome/148.0.7778.280 Electron/42.7.0 Safari/537.36" etag="GJh9WkKeCR5IOrs_vHA6" version="12.2.4" pages="1"><diagram name="第 1 页" id="uIH47aGmkUv_w9oBMfFH">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</diagram></mxfile>
+<mxfile host='12kjjs7dvicrve3vg940b4fqjggeg8ns2bonms6ppk7ob2aa25oi' modified='2026-08-02T13:43:52.665Z' agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.131.0 Chrome/148.0.7778.280 Electron/42.7.0 Safari/537.36' etag='GJh9WkKeCR5IOrs_vHA6' version='12.2.4' pages='1'>
+  <diagram name='第 1 页' id='uIH47aGmkUv_w9oBMfFH'>
+    <mxGraphModel dx='1853' dy='669' grid='1' gridSize='10' guides='1' tooltips='1' connect='1' arrows='1' fold='1' page='1' pageScale='1' pageWidth='827' pageHeight='1169' math='0' shadow='0'>
+      <root>
+        <mxCell id='0'/>
+        <mxCell id='1' parent='0'/>
+        <object placeholders='1' c4Name='後台使用者' c4Type='人' c4Description='後台使用者' label='&lt;font&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-2'>
+          <mxCell style='html=1;fontSize=25;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='-400' y='120' width='200' height='180' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='MyWorkItemSystem' c4Type='SystemScopeBoundary' c4Application='System' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-4'>
+          <mxCell style='rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;strokeWidth=6;' parent='1' vertex='1'>
+            <mxGeometry x='-540' y='500' width='2200' height='1770' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='MyWorkItem_DB' c4Type='Container' c4Technology='MSSQL' c4Description='MyWorkItem資料庫' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-8'>
+          <mxCell style='shape=cylinder3;size=15;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;fillColor=#23A2D9;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#0E7DAD;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='440' y='2050' width='400' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='WorkItemList' c4Type='Browser' c4Technology='Vue3.js' c4Description='View' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-9'>
+          <mxCell style='shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='1200' y='690' width='240' height='160' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='UserController' c4Type='API Controller' c4Technology='ASP.NET Core WebAPI' c4Description='UserController' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-10'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='-400' y='1220' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='使用者' c4Type='人' c4Description='使用者' label='&lt;font&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-6'>
+          <mxCell style='html=1;fontSize=25;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='1200' y='120' width='200' height='180' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS' c4Description='透過UI新增帳戶' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='CUvApo_4XEtp66D_zJWJ-7'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;' parent='1' source='CUvApo_4XEtp66D_zJWJ-2' edge='1' target='eh2pa3CwhKgbDDp96IZn-3'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='-300' y='520'/>
+                <mxPoint x='-280' y='520'/>
+              </Array>
+              <mxPoint x='-300' y='300' as='sourcePoint'/>
+              <mxPoint x='-280' y='690' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='MyWorkItem_前端' c4Type='SystemScopeBoundary' c4Application='FrontEnd' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-1'>
+          <mxCell style='rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];strokeWidth=6;' parent='1' vertex='1'>
+            <mxGeometry x='-500' y='600' width='2100' height='360' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='WorkItemDetail' c4Type='Browser' c4Technology='Vue3.js' c4Description='View' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-2'>
+          <mxCell style='shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='800' y='690' width='240' height='160' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='User' c4Type='Browser' c4Technology='Vue3.js' c4Description='View' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-3'>
+          <mxCell style='shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='-400' y='690' width='240' height='160' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='Login' c4Type='Browser' c4Technology='Vue3.js' c4Description='登入畫面' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='login-view'>
+          <mxCell style='shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='400' y='690' width='240' height='160' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Relationship' c4Technology='HTTPS' c4Description='開啟登入畫面' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='user-to-login-view'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='CUvApo_4XEtp66D_zJWJ-6' target='login-view' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='1300' y='420'/>
+                <mxPoint x='580' y='420'/>
+              </Array>
+              <mxPoint x='1300' y='300' as='sourcePoint'/>
+              <mxPoint x='580' y='690' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Relationship' c4Technology='HTTPS' c4Description='開啟登入畫面' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='backoffice-user-to-login-view'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='CUvApo_4XEtp66D_zJWJ-2' target='login-view' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='-300' y='420'/>
+                <mxPoint x='460' y='420'/>
+              </Array>
+              <mxPoint x='-300' y='300' as='sourcePoint'/>
+              <mxPoint x='460' y='690' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='Admin Panel' c4Type='Browser' c4Technology='Vue3.js' c4Description='View' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-4'>
+          <mxCell style='shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;container=0;' parent='1' vertex='1'>
+            <mxGeometry x='0' y='690' width='240' height='160' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='MyWorkItem_後端' c4Type='SystemScopeBoundary' c4Application='Backend' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-5'>
+          <mxCell style='rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];strokeWidth=6;' parent='1' vertex='1'>
+            <mxGeometry x='-500' y='1040' width='2100' height='1180' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='WorkItemController' c4Type='API Controller' c4Technology='ASP.NET Core WebAPI' c4Description='WorkItemController' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-6'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='960' y='1220' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='AuthenticationController' c4Type='API Controller' c4Technology='ASP.NET Core WebAPI' c4Description='提供登入、Refresh Token 與登出 API' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='auth-api-controller'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='400' y='1220' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS' c4Description='透過UI新增、刪除、修改WorkItem' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-7'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' target='eh2pa3CwhKgbDDp96IZn-4' edge='1' source='CUvApo_4XEtp66D_zJWJ-2'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'>
+                <mxPoint x='-300' y='470'/>
+                <mxPoint x='120' y='470'/>
+              </Array>
+              <mxPoint x='-300' y='300' as='sourcePoint'/>
+              <mxPoint x='120' y='690' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS' c4Description='點擊項目，取得WorkItem細節' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-8'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;' parent='1' target='eh2pa3CwhKgbDDp96IZn-2' edge='1' source='CUvApo_4XEtp66D_zJWJ-9'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'/>
+              <mxPoint x='1200' y='770' as='sourcePoint'/>
+              <mxPoint x='1040' y='770' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS' c4Description='根據自己的帳戶．瀏覽自己的WorkItem' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-9'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;' parent='1' edge='1' source='CUvApo_4XEtp66D_zJWJ-6' target='CUvApo_4XEtp66D_zJWJ-9'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'>
+                <mxPoint x='1300' y='520'/>
+                <mxPoint x='1320' y='520'/>
+              </Array>
+              <mxPoint x='1300' y='300' as='sourcePoint'/>
+              <mxPoint x='1320' y='690' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS/JSON' c4Description='透過API(HTTPS/JSON)進行' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-12'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;' parent='1' source='eh2pa3CwhKgbDDp96IZn-3' target='CUvApo_4XEtp66D_zJWJ-10' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'/>
+              <mxPoint x='-280' y='850' as='sourcePoint'/>
+              <mxPoint x='-280' y='1220' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='AccountService' c4Type='Component' c4Technology='.NET Service' c4Description='Account管理用Service' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-13'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='-400' y='1640' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='RoleService' c4Type='Component' c4Technology='.NET Service' c4Description='Role管理用Service' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-15'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='0' y='1640' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='FunctionService' c4Type='Component' c4Technology='.NET Service' c4Description='Function管理用Service' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-16'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='400' y='1640' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='管理帳號資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-17'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;' parent='1' source='CUvApo_4XEtp66D_zJWJ-10' edge='1' target='eh2pa3CwhKgbDDp96IZn-13'>
+            <mxGeometry x='0.0049' width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='-340' y='1400'/>
+                <mxPoint x='-280' y='1400'/>
+              </Array>
+              <mxPoint x='-340' y='1340' as='sourcePoint'/>
+              <mxPoint x='-280' y='1640' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='管理角色資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-22'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;' parent='1' target='eh2pa3CwhKgbDDp96IZn-15' edge='1' source='CUvApo_4XEtp66D_zJWJ-10'>
+            <mxGeometry x='0.0069' width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='-280' y='1450'/>
+                <mxPoint x='120' y='1450'/>
+              </Array>
+              <mxPoint x='-280' y='1340' as='sourcePoint'/>
+              <mxPoint x='120' y='1640' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='管理功能資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-23'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.75;exitY=1;' parent='1' edge='1' source='CUvApo_4XEtp66D_zJWJ-10' target='eh2pa3CwhKgbDDp96IZn-16'>
+            <mxGeometry x='0.0066' width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='-280' y='1500'/>
+                <mxPoint x='460' y='1500'/>
+              </Array>
+              <mxPoint x='-220' y='1340' as='sourcePoint'/>
+              <mxPoint x='460' y='1640' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS/JSON' c4Description='管理 Work Item' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-25'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' target='eh2pa3CwhKgbDDp96IZn-6' edge='1' source='eh2pa3CwhKgbDDp96IZn-4'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='120' y='990'/>
+                <mxPoint x='1080' y='990'/>
+              </Array>
+              <mxPoint x='120' y='850' as='sourcePoint'/>
+              <mxPoint x='1080' y='1220' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS/JSON' c4Description='查詢 Work Item 詳情' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-26'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' target='eh2pa3CwhKgbDDp96IZn-6' edge='1' source='eh2pa3CwhKgbDDp96IZn-2'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='920' y='1060'/>
+                <mxPoint x='1080' y='1060'/>
+              </Array>
+              <mxPoint x='920' y='850' as='sourcePoint'/>
+              <mxPoint x='1080' y='1220' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Action' c4Technology='HTTPS/JSON' c4Description='查詢與確認 Work Item' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-27'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='CUvApo_4XEtp66D_zJWJ-9' target='eh2pa3CwhKgbDDp96IZn-6' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='1320' y='1130'/>
+                <mxPoint x='1140' y='1130'/>
+              </Array>
+              <mxPoint x='1320' y='850' as='sourcePoint'/>
+              <mxPoint x='1140' y='1220' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Relationship' c4Technology='HTTPS/JSON' c4Description='登入、刷新 Token 與登出' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='frontend-to-auth-controller'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='login-view' target='auth-api-controller' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'/>
+              <mxPoint x='520' y='850' as='sourcePoint'/>
+              <mxPoint x='520' y='1220' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='Relationship' c4Technology='Service' c4Description='驗證帳號' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='auth-controller-to-account-service'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='auth-api-controller' target='eh2pa3CwhKgbDDp96IZn-13' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <mxPoint as='offset'/>
+              <Array as='points'>
+                <mxPoint x='520' y='1580'/>
+                <mxPoint x='-220' y='1580'/>
+              </Array>
+              <mxPoint x='520' y='1340' as='sourcePoint'/>
+              <mxPoint x='-220' y='1640' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Name='WorkItemService' c4Type='Component' c4Technology='.NET Service' c4Description='WorkItem管理用Service' label='&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-29'>
+          <mxCell style='rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#63BEF2;fontColor=#ffffff;align=center;arcSize=0;strokeColor=#2086C9;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];container=0;' parent='1' vertex='1'>
+            <mxGeometry x='960' y='1640' width='240' height='120' as='geometry'/>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='處理 Work Item' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-30'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='eh2pa3CwhKgbDDp96IZn-6' target='eh2pa3CwhKgbDDp96IZn-29' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'/>
+              <mxPoint x='1080' y='1340' as='sourcePoint'/>
+              <mxPoint x='1080' y='1640' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='存取帳號資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-31'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.15;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' target='CUvApo_4XEtp66D_zJWJ-8' edge='1' source='eh2pa3CwhKgbDDp96IZn-13'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'>
+                <mxPoint x='-280' y='1840'/>
+                <mxPoint x='500' y='1840'/>
+              </Array>
+              <mxPoint x='-280' y='1760' as='sourcePoint'/>
+              <mxPoint x='500' y='2050' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='存取角色資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-32'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.4;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='eh2pa3CwhKgbDDp96IZn-15' target='CUvApo_4XEtp66D_zJWJ-8' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'>
+                <mxPoint x='120' y='1900'/>
+                <mxPoint x='600' y='1900'/>
+              </Array>
+              <mxPoint x='120' y='1760' as='sourcePoint'/>
+              <mxPoint x='600' y='2050' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='存取功能資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-33'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.65;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' source='eh2pa3CwhKgbDDp96IZn-16' target='CUvApo_4XEtp66D_zJWJ-8' edge='1'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'>
+                <mxPoint x='520' y='1960'/>
+                <mxPoint x='700' y='1960'/>
+              </Array>
+              <mxPoint x='520' y='1760' as='sourcePoint'/>
+              <mxPoint x='700' y='2050' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders='1' c4Type='' c4Technology='' c4Description='存取 Work Item 資料' label='&lt;div style=&quot;text-align: left&quot;&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;b&gt;%c4Description%&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;[%c4Technology%]&lt;/div&gt;&lt;/div&gt;' id='eh2pa3CwhKgbDDp96IZn-34'>
+          <mxCell style='endArrow=blockThin;html=1;fontSize=20;fontColor=#404040;strokeWidth=9;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=25;startSize=25;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.9;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;' parent='1' target='CUvApo_4XEtp66D_zJWJ-8' edge='1' source='eh2pa3CwhKgbDDp96IZn-29'>
+            <mxGeometry width='240' relative='1' as='geometry'>
+              <Array as='points'>
+                <mxPoint x='1080' y='2020'/>
+                <mxPoint x='800' y='2020'/>
+              </Array>
+              <mxPoint x='1080' y='1760' as='sourcePoint'/>
+              <mxPoint x='800' y='2050' as='targetPoint'/>
+            </mxGeometry>
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
