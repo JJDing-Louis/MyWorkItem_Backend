@@ -23,6 +23,8 @@ internal static class TestDataFactory
         Faker.Lorem.Sentence(4),
         Faker.Lorem.Paragraph(),
         Guid.NewGuid(),
+        null,
+        "Active",
         DateTimeOffset.UtcNow.AddDays(-1),
         DateTimeOffset.UtcNow,
         Faker.Random.Bytes(8),

@@ -47,15 +47,24 @@ public sealed class WorkItemRepository(IDbConnectionFactory connections) : IWork
         return await connection.QuerySingleOrDefaultAsync<WorkItemRecord>(new CommandDefinition(compiled.Sql, compiled.NamedBindings, cancellationToken: cancellationToken));
     }
 
-    public async Task<WorkItemRecord> CreateAsync(string title, string? description, Guid accountId, Guid userId, CancellationToken cancellationToken)
+    public async Task<WorkItemRecord> CreateAsync(string title, string? description, Guid userId, CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
         const string sql = """
-            INSERT INTO WorkItems (WorkItemId, Title, Description, CreatedBy, CreatedAt, UpdatedAt)
-            VALUES (@WorkItemId, @Title, @Description, @CreatedBy, SYSUTCDATETIME(), SYSUTCDATETIME());
+            INSERT INTO WorkItems
+                (WorkItemId, Title, Description, CreatedUserId, AssignedUserId, WorkItemStatusId, CreatedAt, UpdatedAt)
+            SELECT
+                @WorkItemId, @Title, @Description, @CreatedUserId, NULL, WorkItemStatusId, SYSUTCDATETIME(), SYSUTCDATETIME()
+            FROM WorkItemStatuses
+            WHERE Code = N'Active' AND IsEnabled = 1;
             """;
         await using var connection = connections.CreateConnection();
-        await connection.ExecuteAsync(new CommandDefinition(sql, new { WorkItemId = id, Title = title, Description = description, CreatedBy = accountId }, cancellationToken: cancellationToken));
+        var affected = await connection.ExecuteAsync(new CommandDefinition(sql, new { WorkItemId = id, Title = title, Description = description, CreatedUserId = userId }, cancellationToken: cancellationToken));
+        if (affected != 1)
+        {
+            throw new InvalidOperationException("缺少有效的 Active Work Item Status。");
+        }
+
         return await GetAsync(id, userId, cancellationToken) ?? throw new InvalidOperationException("新增 Work Item 後無法讀回資料。");
     }
 
@@ -83,15 +92,15 @@ public sealed class WorkItemRepository(IDbConnectionFactory connections) : IWork
         return await GetAsync(workItemId, userId, cancellationToken) ?? throw new NotFoundException("找不到指定的 Work Item。");
     }
 
-    public async Task DeleteAsync(Guid workItemId, Guid accountId, byte[]? rowVersion, CancellationToken cancellationToken)
+    public async Task DeleteAsync(Guid workItemId, Guid userId, byte[]? rowVersion, CancellationToken cancellationToken)
     {
         const string sql = """
             UPDATE WorkItems
-            SET DeletedAt = SYSUTCDATETIME(), DeletedBy = @DeletedBy, UpdatedAt = SYSUTCDATETIME()
+            SET DeletedAt = SYSUTCDATETIME(), DeletedByUserId = @DeletedByUserId, UpdatedAt = SYSUTCDATETIME()
             WHERE WorkItemId = @WorkItemId AND DeletedAt IS NULL;
             """;
         await using var connection = connections.CreateConnection();
-        var affected = await connection.ExecuteAsync(new CommandDefinition(sql, new { WorkItemId = workItemId, DeletedBy = accountId }, cancellationToken: cancellationToken));
+        var affected = await connection.ExecuteAsync(new CommandDefinition(sql, new { WorkItemId = workItemId, DeletedByUserId = userId }, cancellationToken: cancellationToken));
         if (affected == 0)
         {
             throw new NotFoundException("找不到指定的 Work Item。");
@@ -132,8 +141,11 @@ public sealed class WorkItemRepository(IDbConnectionFactory connections) : IWork
 
     private Query BaseQuery(Guid userId) => new Query("WorkItems as w")
         .LeftJoin("UserWorkItemStates as s", join => join.On("s.WorkItemId", "w.WorkItemId").Where("s.UserId", userId))
+        .Join("WorkItemStatuses as ws", "ws.WorkItemStatusId", "w.WorkItemStatusId")
         .WhereNull("w.DeletedAt")
-        .Select("w.WorkItemId", "w.Title", "w.Description", "w.CreatedBy", "w.CreatedAt", "w.UpdatedAt", "w.RowVersion")
+        .Select("w.WorkItemId", "w.Title", "w.Description", "w.CreatedUserId", "w.AssignedUserId")
+        .SelectRaw("ws.Code AS WorkItemStatusCode")
+        .Select("w.CreatedAt", "w.UpdatedAt", "w.RowVersion")
         .SelectRaw("CAST(COALESCE(s.IsConfirmed, 0) AS bit) AS IsConfirmed, s.ConfirmedAt");
 
     private async Task SetConfirmationAsync(Guid workItemId, Guid userId, bool isConfirmed, CancellationToken cancellationToken)

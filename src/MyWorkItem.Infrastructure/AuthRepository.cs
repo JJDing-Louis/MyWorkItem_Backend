@@ -80,10 +80,10 @@ public sealed class AuthRepository(IDbConnectionFactory connections) : IAuthRepo
             SELECT a.AccountId, u.UserId, a.UserName, u.Name, a.PasswordHash, a.IsEnabled,
                    r.Code AS RoleCode, f.Code AS PermissionCode
             FROM Accounts a
-            INNER JOIN Users u ON u.AccountId = a.AccountId
-            LEFT JOIN AccountRoles ar ON ar.AccountId = a.AccountId
-            LEFT JOIN Roles r ON r.RoleId = ar.RoleId AND r.IsEnabled = 1
-            LEFT JOIN RoleFunctions rf ON rf.RoleId = r.RoleId
+            INNER JOIN Users u ON u.UserId = a.UserId
+            LEFT JOIN UserRoles ur ON ur.UserId = u.UserId AND ur.IsEnabled = 1
+            LEFT JOIN Roles r ON r.RoleId = ur.RoleId AND r.IsEnabled = 1
+            LEFT JOIN RoleFunctions rf ON rf.RoleId = r.RoleId AND rf.IsEnabled = 1
             LEFT JOIN [Functions] f ON f.FunctionId = rf.FunctionId AND f.IsEnabled = 1
             WHERE {{predicate}};
             """;

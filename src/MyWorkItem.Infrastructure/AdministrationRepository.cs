@@ -14,14 +14,14 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
         const string sql = """
             SELECT u.UserId
             FROM Users u
-            INNER JOIN Accounts a ON a.AccountId = u.AccountId
+            INNER JOIN Accounts a ON a.UserId = u.UserId
             WHERE @Keyword IS NULL OR a.UserName LIKE '%' + @Keyword + '%' OR u.Name LIKE '%' + @Keyword + '%'
             ORDER BY a.CreatedAt DESC
             OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
 
             SELECT COUNT(1)
             FROM Users u
-            INNER JOIN Accounts a ON a.AccountId = u.AccountId
+            INNER JOIN Accounts a ON a.UserId = u.UserId
             WHERE @Keyword IS NULL OR a.UserName LIKE '%' + @Keyword + '%' OR u.Name LIKE '%' + @Keyword + '%';
             """;
         await using var connection = connections.CreateConnection();
@@ -47,9 +47,9 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
             SELECT u.UserId, a.AccountId, a.UserName, u.Name, u.Email, u.Remark, a.IsEnabled,
                    r.RoleId, r.Code AS RoleCode, r.Name AS RoleName, r.IsEnabled AS RoleIsEnabled
             FROM Users u
-            INNER JOIN Accounts a ON a.AccountId = u.AccountId
-            LEFT JOIN AccountRoles ar ON ar.AccountId = a.AccountId
-            LEFT JOIN Roles r ON r.RoleId = ar.RoleId
+            INNER JOIN Accounts a ON a.UserId = u.UserId
+            LEFT JOIN UserRoles ur ON ur.UserId = u.UserId AND ur.IsEnabled = 1
+            LEFT JOIN Roles r ON r.RoleId = ur.RoleId
             WHERE u.UserId = @UserId;
             """;
         await using var connection = connections.CreateConnection();
@@ -82,10 +82,10 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
         {
             await EnsureIdsExistAsync(connection, transaction, "Roles", "RoleId", request.RoleIds, cancellationToken);
             const string sql = """
-                INSERT INTO Accounts (AccountId, UserName, PasswordHash, IsEnabled, CreatedAt, UpdatedAt)
-                VALUES (@AccountId, @UserName, @PasswordHash, 1, SYSUTCDATETIME(), SYSUTCDATETIME());
-                INSERT INTO Users (UserId, AccountId, Name, Email, Remark)
-                VALUES (@UserId, @AccountId, @Name, @Email, @Remark);
+                INSERT INTO Users (UserId, Name, Email, Remark)
+                VALUES (@UserId, @Name, @Email, @Remark);
+                INSERT INTO Accounts (AccountId, UserId, UserName, PasswordHash, IsEnabled, CreatedAt, UpdatedAt)
+                VALUES (@AccountId, @UserId, @UserName, @PasswordHash, 1, SYSUTCDATETIME(), SYSUTCDATETIME());
                 """;
             await connection.ExecuteAsync(new CommandDefinition(sql, new
             {
@@ -97,7 +97,7 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
                 Email = NormalizeOptional(request.Email),
                 Remark = NormalizeOptional(request.Remark)
             }, transaction, cancellationToken: cancellationToken));
-            await ReplaceLinksAsync(connection, transaction, "AccountRoles", "AccountId", accountId, "RoleId", request.RoleIds, cancellationToken);
+            await ReplaceLinksAsync(connection, transaction, "UserRoles", "UserId", userId, "RoleId", request.RoleIds, cancellationToken);
             await transaction.CommitAsync(cancellationToken);
         }
         catch (SqlException exception) when (exception.Number is 2601 or 2627)
@@ -116,7 +116,7 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
             SET Name = @Name, Email = @Email, Remark = @Remark
             WHERE UserId = @UserId;
             UPDATE Accounts SET UpdatedAt = SYSUTCDATETIME()
-            WHERE AccountId = (SELECT AccountId FROM Users WHERE UserId = @UserId);
+            WHERE UserId = @UserId;
             """;
         try
         {
@@ -146,7 +146,7 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
         const string sql = """
             UPDATE Accounts
             SET IsEnabled = @IsEnabled, UpdatedAt = SYSUTCDATETIME()
-            WHERE AccountId = (SELECT AccountId FROM Users WHERE UserId = @UserId);
+            WHERE UserId = @UserId;
             """;
         await ExecuteRequiredAsync(sql, new { UserId = userId, IsEnabled = isEnabled }, "找不到指定的使用者。", cancellationToken);
     }
@@ -156,7 +156,7 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
         const string sql = """
             UPDATE Accounts
             SET PasswordHash = @PasswordHash, UpdatedAt = SYSUTCDATETIME()
-            WHERE AccountId = (SELECT AccountId FROM Users WHERE UserId = @UserId);
+            WHERE UserId = @UserId;
             """;
         await ExecuteRequiredAsync(sql, new { UserId = userId, PasswordHash = passwordHash }, "找不到指定的使用者。", cancellationToken);
     }
@@ -166,14 +166,14 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
         await using var connection = connections.CreateConnection();
         await connection.OpenAsync(cancellationToken);
         await using var transaction = await connection.BeginTransactionAsync(IsolationLevel.Serializable, cancellationToken);
-        var accountId = await connection.QuerySingleOrDefaultAsync<Guid?>(new CommandDefinition("SELECT AccountId FROM Users WHERE UserId = @UserId;", new { UserId = userId }, transaction, cancellationToken: cancellationToken));
-        if (accountId is null)
+        var userExists = await connection.ExecuteScalarAsync<int>(new CommandDefinition("SELECT COUNT(1) FROM Users WHERE UserId = @UserId;", new { UserId = userId }, transaction, cancellationToken: cancellationToken));
+        if (userExists == 0)
         {
             throw new NotFoundException("找不到指定的使用者。");
         }
 
         await EnsureIdsExistAsync(connection, transaction, "Roles", "RoleId", roleIds, cancellationToken);
-        await ReplaceLinksAsync(connection, transaction, "AccountRoles", "AccountId", accountId.Value, "RoleId", roleIds, cancellationToken);
+        await ReplaceLinksAsync(connection, transaction, "UserRoles", "UserId", userId, "RoleId", roleIds, cancellationToken);
         await transaction.CommitAsync(cancellationToken);
     }
 
@@ -183,7 +183,7 @@ public sealed class AdministrationRepository(IDbConnectionFactory connections) :
             SELECT r.RoleId, r.Code, r.Name, r.IsEnabled,
                    f.FunctionId, f.Code AS FunctionCode, f.Name AS FunctionName, f.IsEnabled AS FunctionIsEnabled
             FROM Roles r
-            LEFT JOIN RoleFunctions rf ON rf.RoleId = r.RoleId
+            LEFT JOIN RoleFunctions rf ON rf.RoleId = r.RoleId AND rf.IsEnabled = 1
             LEFT JOIN [Functions] f ON f.FunctionId = rf.FunctionId
             ORDER BY r.Code, f.Code;
             """;

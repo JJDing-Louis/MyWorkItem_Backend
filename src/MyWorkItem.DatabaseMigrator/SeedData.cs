@@ -35,7 +35,7 @@ public static class SeedData
             foreach (var permission in permissions)
             {
                 await connection.ExecuteAsync(new CommandDefinition(
-                    "IF NOT EXISTS (SELECT 1 FROM RoleFunctions WHERE RoleId = @RoleId AND FunctionId = @FunctionId) INSERT INTO RoleFunctions (RoleId, FunctionId) VALUES (@RoleId, @FunctionId);",
+                    "IF EXISTS (SELECT 1 FROM RoleFunctions WHERE RoleId = @RoleId AND FunctionId = @FunctionId) UPDATE RoleFunctions SET IsEnabled = 1 WHERE RoleId = @RoleId AND FunctionId = @FunctionId ELSE INSERT INTO RoleFunctions (RoleId, FunctionId, IsEnabled) VALUES (@RoleId, @FunctionId, 1);",
                     new { RoleId = roleId, FunctionId = functionIds[permission] },
                     transaction,
                     cancellationToken: cancellationToken));
@@ -79,8 +79,12 @@ public static class SeedData
 
     private static async Task EnsureAccountAsync(SqlConnection connection, IDbTransaction transaction, string userName, string password, string name, IReadOnlyCollection<Guid> roleIds, CancellationToken cancellationToken)
     {
-        var accountId = await connection.QuerySingleOrDefaultAsync<Guid?>(new CommandDefinition("SELECT AccountId FROM Accounts WHERE UserName = @UserName;", new { UserName = userName }, transaction, cancellationToken: cancellationToken));
-        if (accountId is null)
+        var identity = await connection.QuerySingleOrDefaultAsync<SeedIdentity>(new CommandDefinition(
+            "SELECT AccountId, UserId FROM Accounts WHERE UserName = @UserName;",
+            new { UserName = userName },
+            transaction,
+            cancellationToken: cancellationToken));
+        if (identity is null)
         {
             var now = DateTimeOffset.UtcNow;
             var account = new Account
@@ -95,20 +99,26 @@ public static class SeedData
             account.PasswordHash = new PasswordHasher<Account>().HashPassword(account, password);
             var userId = Guid.NewGuid();
             await connection.ExecuteAsync(new CommandDefinition(
-                "INSERT INTO Accounts (AccountId, UserName, PasswordHash, IsEnabled, CreatedAt, UpdatedAt) VALUES (@AccountId, @UserName, @PasswordHash, 1, @CreatedAt, @UpdatedAt); INSERT INTO Users (UserId, AccountId, Name) VALUES (@UserId, @AccountId, @Name);",
+                "INSERT INTO Users (UserId, Name) VALUES (@UserId, @Name); INSERT INTO Accounts (AccountId, UserId, UserName, PasswordHash, IsEnabled, CreatedAt, UpdatedAt) VALUES (@AccountId, @UserId, @UserName, @PasswordHash, 1, @CreatedAt, @UpdatedAt);",
                 new { account.AccountId, account.UserName, account.PasswordHash, account.CreatedAt, account.UpdatedAt, UserId = userId, Name = name },
                 transaction,
                 cancellationToken: cancellationToken));
-            accountId = account.AccountId;
+            identity = new SeedIdentity { AccountId = account.AccountId, UserId = userId };
         }
 
         foreach (var roleId in roleIds)
         {
             await connection.ExecuteAsync(new CommandDefinition(
-                "IF NOT EXISTS (SELECT 1 FROM AccountRoles WHERE AccountId = @AccountId AND RoleId = @RoleId) INSERT INTO AccountRoles (AccountId, RoleId) VALUES (@AccountId, @RoleId);",
-                new { AccountId = accountId.Value, RoleId = roleId },
+                "IF EXISTS (SELECT 1 FROM UserRoles WHERE UserId = @UserId AND RoleId = @RoleId) UPDATE UserRoles SET IsEnabled = 1 WHERE UserId = @UserId AND RoleId = @RoleId ELSE INSERT INTO UserRoles (UserId, RoleId, IsEnabled) VALUES (@UserId, @RoleId, 1);",
+                new { identity.UserId, RoleId = roleId },
                 transaction,
                 cancellationToken: cancellationToken));
         }
+    }
+
+    private sealed class SeedIdentity
+    {
+        public Guid AccountId { get; init; }
+        public Guid UserId { get; init; }
     }
 }

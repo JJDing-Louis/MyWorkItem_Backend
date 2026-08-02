@@ -11,6 +11,7 @@ public static class DatabaseUpgrade
         return DeployChanges.To
             .SqlDatabase(connectionString)
             .WithScriptsEmbeddedInAssembly(typeof(DatabaseUpgrade).Assembly)
+            .WithTransaction()
             .LogToConsole()
             .Build()
             .PerformUpgrade();

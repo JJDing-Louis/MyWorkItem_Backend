@@ -26,7 +26,7 @@ public sealed class WorkItemsController(IWorkItemService service) : ControllerBa
     [Authorize(Policy = PermissionCodes.WorkItemsManage)]
     public async Task<ActionResult<WorkItemResponse>> Create(CreateWorkItemRequest request, CancellationToken cancellationToken)
     {
-        var result = await service.CreateAsync(request, User.GetAccountId(), User.GetUserId(), cancellationToken);
+        var result = await service.CreateAsync(request, User.GetUserId(), cancellationToken);
         return CreatedAtAction(nameof(Get), new { workItemId = result.WorkItemId }, result);
     }
 
@@ -39,7 +39,7 @@ public sealed class WorkItemsController(IWorkItemService service) : ControllerBa
     [Authorize(Policy = PermissionCodes.WorkItemsManage)]
     public async Task<IActionResult> Delete(Guid workItemId, CancellationToken cancellationToken)
     {
-        await service.DeleteAsync(workItemId, User.GetAccountId(), cancellationToken);
+        await service.DeleteAsync(workItemId, User.GetUserId(), cancellationToken);
         return NoContent();
     }
 

@@ -13,7 +13,6 @@ public sealed class Account
 public sealed class User
 {
     public Guid UserId { get; init; }
-    public Guid AccountId { get; init; }
     public required string Name { get; set; }
     public string? Email { get; set; }
     public string? Remark { get; set; }
@@ -43,7 +42,9 @@ public sealed record WorkItemRecord(
     Guid WorkItemId,
     string Title,
     string? Description,
-    Guid CreatedBy,
+    Guid CreatedUserId,
+    Guid? AssignedUserId,
+    string WorkItemStatusCode,
     DateTimeOffset CreatedAt,
     DateTimeOffset UpdatedAt,
     byte[] RowVersion,

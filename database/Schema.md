@@ -2,39 +2,55 @@
 
 實際資料庫版本以
 [`src/MyWorkItem.DatabaseMigrator/Scripts/`](../src/MyWorkItem.DatabaseMigrator/Scripts/)
-內依序編號的 DbUp SQL Migration 為準。本文件提供 ERD、資料表欄位與重要約束的
-閱讀版本。
+內依序編號的 DbUp Migration 為準。本版已對齊 `draft/Schema.md`，並保留密碼安全、
+Session、稽核、並行控制與多使用者個人確認狀態。
+
+## 草稿對齊決策
+
+| 草稿概念 | 正式設計 | 原因 |
+| --- | --- | --- |
+| `Account.UserID` | `Accounts.UserId` 一對一 FK | 依草稿由帳號指向使用者 |
+| `Account.Password` | `Accounts.PasswordHash` | 禁止保存明碼密碼 |
+| `UserRole` | `UserRoles(UserId, RoleId, IsEnabled)` | 角色直接指派給使用者，並可停用單一關聯 |
+| `RoleFunction.IsEnable` | `RoleFunctions.IsEnabled` | 可停用單一角色權限關聯 |
+| `WorkItem.CreateUserID` | `WorkItems.CreatedUserId` | FK 指向實際建立者 |
+| `WorkItem.AsignUserID` | `WorkItems.AssignedUserId` | 修正拼字；允許空值代表開放所有使用者 |
+| `WorkItem.Status` | `WorkItems.WorkItemStatusId` | 使用 `WorkItemStatuses` 主檔維護項目生命週期 |
+| 三個 Work Item 欄位皆標 PK | 只有 `WorkItemId` 是 PK | 建立者與指派者是關聯，不應成為主鍵 |
+
+`WorkItemStatuses` 描述項目本身的 `Active`／`Closed` 生命週期；使用者個人的
+「待確認／已確認」仍由 `UserWorkItemStates` 保存，避免某位使用者的操作影響他人。
 
 ## ERD
 
 ```mermaid
 erDiagram
-    Accounts ||--|| Users : "擁有個人資料"
-    Accounts ||--o{ AccountRoles : "具有"
-    Roles ||--o{ AccountRoles : "指派給帳號"
+    Users ||--|| Accounts : "登入帳號"
+    Users ||--o{ UserRoles : "具有"
+    Roles ||--o{ UserRoles : "指派"
     Roles ||--o{ RoleFunctions : "允許"
-    Functions ||--o{ RoleFunctions : "屬於角色"
+    Functions ||--o{ RoleFunctions : "功能"
     Accounts ||--o{ RefreshTokens : "建立 Session"
-    RefreshTokens o|--o| RefreshTokens : "輪替為"
-    Accounts ||--o{ WorkItems : "建立"
-    Accounts o|--o{ WorkItems : "刪除"
+    Users ||--o{ WorkItems : "建立"
+    Users o|--o{ WorkItems : "被指派"
+    WorkItemStatuses ||--o{ WorkItems : "生命週期"
     Users ||--o{ UserWorkItemStates : "個人確認"
-    WorkItems ||--o{ UserWorkItemStates : "由使用者操作"
+    WorkItems ||--o{ UserWorkItemStates : "確認狀態"
 
+    Users {
+        uniqueidentifier UserId PK
+        nvarchar_200 Name
+        nvarchar_320 Email UK "nullable"
+        nvarchar_1000 Remark "nullable"
+    }
     Accounts {
         uniqueidentifier AccountId PK
+        uniqueidentifier UserId FK,UK
         nvarchar_100 UserName UK
         nvarchar_500 PasswordHash
         bit IsEnabled
         datetimeoffset CreatedAt
         datetimeoffset UpdatedAt
-    }
-    Users {
-        uniqueidentifier UserId PK
-        uniqueidentifier AccountId FK,UK
-        nvarchar_200 Name
-        nvarchar_320 Email UK "nullable"
-        nvarchar_1000 Remark "nullable"
     }
     Roles {
         uniqueidentifier RoleId PK
@@ -48,13 +64,41 @@ erDiagram
         nvarchar_200 Name
         bit IsEnabled
     }
-    AccountRoles {
-        uniqueidentifier AccountId PK_FK
-        uniqueidentifier RoleId PK_FK
+    UserRoles {
+        uniqueidentifier UserId PK,FK
+        uniqueidentifier RoleId PK,FK
+        bit IsEnabled
     }
     RoleFunctions {
-        uniqueidentifier RoleId PK_FK
-        uniqueidentifier FunctionId PK_FK
+        uniqueidentifier RoleId PK,FK
+        uniqueidentifier FunctionId PK,FK
+        bit IsEnabled
+    }
+    WorkItemStatuses {
+        uniqueidentifier WorkItemStatusId PK
+        nvarchar_100 Code UK
+        nvarchar_200 Name
+        bit IsEnabled
+    }
+    WorkItems {
+        uniqueidentifier WorkItemId PK
+        uniqueidentifier CreatedUserId FK
+        uniqueidentifier AssignedUserId FK "nullable"
+        uniqueidentifier WorkItemStatusId FK
+        nvarchar_200 Title
+        nvarchar_4000 Description "nullable"
+        datetimeoffset CreatedAt
+        datetimeoffset UpdatedAt
+        datetimeoffset DeletedAt "nullable"
+        uniqueidentifier DeletedByUserId FK "nullable"
+        rowversion RowVersion
+    }
+    UserWorkItemStates {
+        uniqueidentifier UserId PK,FK
+        uniqueidentifier WorkItemId PK,FK
+        bit IsConfirmed
+        datetimeoffset ConfirmedAt "nullable"
+        datetimeoffset UpdatedAt
     }
     RefreshTokens {
         uniqueidentifier RefreshTokenId PK
@@ -66,145 +110,48 @@ erDiagram
         datetimeoffset RevokedAt "nullable"
         uniqueidentifier ReplacedByTokenId FK "nullable"
     }
-    WorkItems {
-        uniqueidentifier WorkItemId PK
-        nvarchar_200 Title
-        nvarchar_4000 Description "nullable"
-        uniqueidentifier CreatedBy FK
-        datetimeoffset CreatedAt
-        datetimeoffset UpdatedAt
-        datetimeoffset DeletedAt "nullable"
-        uniqueidentifier DeletedBy FK "nullable"
-        rowversion RowVersion
-    }
-    UserWorkItemStates {
-        uniqueidentifier UserId PK_FK
-        uniqueidentifier WorkItemId PK_FK
-        bit IsConfirmed
-        datetimeoffset ConfirmedAt "nullable"
-        datetimeoffset UpdatedAt
-    }
 ```
 
 ## 資料表摘要
 
 | Table | 主鍵 | 用途 |
 | --- | --- | --- |
+| `Users` | `UserId` | 姓名、Email 與備註 |
 | `Accounts` | `AccountId` | 登入帳號、密碼雜湊與啟用狀態 |
-| `Users` | `UserId` | 與 Account 一對一的個人資料 |
-| `Roles` | `RoleId` | 角色定義 |
-| `Functions` | `FunctionId` | 細粒度 Function 權限定義 |
-| `AccountRoles` | `(AccountId, RoleId)` | 帳號與角色多對多關聯 |
-| `RoleFunctions` | `(RoleId, FunctionId)` | 角色與 Function 多對多關聯 |
-| `RefreshTokens` | `RefreshTokenId` | Refresh Token Hash、輪替及撤銷狀態 |
-| `WorkItems` | `WorkItemId` | Work Item 內容、稽核、軟刪除與並行版本 |
-| `UserWorkItemStates` | `(UserId, WorkItemId)` | 每位使用者獨立的 Work Item 確認狀態 |
+| `Roles` | `RoleId` | 角色主檔 |
+| `Functions` | `FunctionId` | 細粒度 Function 權限主檔 |
+| `UserRoles` | `(UserId, RoleId)` | 使用者角色關聯及單筆啟用狀態 |
+| `RoleFunctions` | `(RoleId, FunctionId)` | 角色功能關聯及單筆啟用狀態 |
+| `WorkItemStatuses` | `WorkItemStatusId` | Work Item 生命週期主檔 |
+| `WorkItems` | `WorkItemId` | 內容、建立／指派使用者、生命週期、軟刪除與版本 |
+| `UserWorkItemStates` | `(UserId, WorkItemId)` | 每位使用者獨立的確認狀態 |
+| `RefreshTokens` | `RefreshTokenId` | Refresh Token 輪替與撤銷 |
 
-DbUp 另外建立 `SchemaVersions` Journal Table，記錄已執行的 Migration Script；該表由
-DbUp 管理，不屬於業務模型。
+## 重要約束
 
-## Table Schema
+### 使用者與權限
 
-### Accounts
+- `Accounts.UserId` 為 Unique FK，確保一位使用者最多一個登入帳號。
+- `UserRoles.IsEnabled = 0` 時，登入授權不載入該角色。
+- `RoleFunctions.IsEnabled = 0` 時，JWT 不包含該 Function。
+- `Roles`、`Functions` 本身仍有 `IsEnabled`，主檔與關聯任一停用都不授權。
 
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `AccountId` | `uniqueidentifier` | 否 | PK |
-| `UserName` | `nvarchar(100)` | 否 | UK，登入名稱 |
-| `PasswordHash` | `nvarchar(500)` | 否 | ASP.NET Core PasswordHasher 雜湊，不保存明碼 |
-| `IsEnabled` | `bit` | 否 | 預設 `1` |
-| `CreatedAt` | `datetimeoffset(7)` | 否 | UTC 建立時間 |
-| `UpdatedAt` | `datetimeoffset(7)` | 否 | UTC 更新時間 |
+### Work Item
 
-### Users
+- `CreatedUserId` 必填；`AssignedUserId` 可空，空值代表未限定單一使用者。
+- `WorkItemStatusId` 必填，Migration 預建 `Active` 與 `Closed`。
+- `DeletedAt`／`DeletedByUserId` 用於軟刪除稽核。
+- `RowVersion` 由 SQL Server 產生，API 以 Base64 `version` 做樂觀並行控制。
+- `UserWorkItemStates` 的複合主鍵確保同一使用者對同一項目只有一筆狀態。
 
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `UserId` | `uniqueidentifier` | 否 | PK |
-| `AccountId` | `uniqueidentifier` | 否 | FK → `Accounts.AccountId`，並有 UK 確保一對一 |
-| `Name` | `nvarchar(200)` | 否 | 顯示名稱 |
-| `Email` | `nvarchar(320)` | 是 | Filtered Unique Index，非空值不可重複 |
-| `Remark` | `nvarchar(1000)` | 是 | 備註 |
+## Migration
 
-### Roles
+| Script | 說明 |
+| --- | --- |
+| `001_InitialSchema.sql` | 建立初始帳號、權限、Session、Work Item 與個人確認結構 |
+| `002_AlignDraftSchema.sql` | 對齊草稿：帳號改由 `UserId` 關聯、建立 `UserRoles`、加入關聯啟用旗標、Work Item 建立／指派使用者與狀態主檔 |
 
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `RoleId` | `uniqueidentifier` | 否 | PK |
-| `Code` | `nvarchar(100)` | 否 | UK，穩定角色代碼 |
-| `Name` | `nvarchar(200)` | 否 | 顯示名稱 |
-| `IsEnabled` | `bit` | 否 | 預設 `1` |
-
-### Functions
-
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `FunctionId` | `uniqueidentifier` | 否 | PK |
-| `Code` | `nvarchar(100)` | 否 | UK，例如 `WorkItems.Read` |
-| `Name` | `nvarchar(200)` | 否 | 顯示名稱 |
-| `IsEnabled` | `bit` | 否 | 預設 `1` |
-
-### AccountRoles
-
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `AccountId` | `uniqueidentifier` | 否 | PK、FK → `Accounts.AccountId` |
-| `RoleId` | `uniqueidentifier` | 否 | PK、FK → `Roles.RoleId` |
-
-### RoleFunctions
-
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `RoleId` | `uniqueidentifier` | 否 | PK、FK → `Roles.RoleId` |
-| `FunctionId` | `uniqueidentifier` | 否 | PK、FK → `Functions.FunctionId` |
-
-### RefreshTokens
-
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `RefreshTokenId` | `uniqueidentifier` | 否 | PK |
-| `AccountId` | `uniqueidentifier` | 否 | FK → `Accounts.AccountId` |
-| `TokenHash` | `char(64)` | 否 | UK，只保存 SHA-256 Hex，不保存原始 Token |
-| `TokenFamily` | `uniqueidentifier` | 否 | 同一登入 Session 的輪替族群 |
-| `ExpiresAt` | `datetimeoffset(7)` | 否 | 到期時間 |
-| `CreatedAt` | `datetimeoffset(7)` | 否 | 建立時間 |
-| `RevokedAt` | `datetimeoffset(7)` | 是 | 撤銷時間 |
-| `ReplacedByTokenId` | `uniqueidentifier` | 是 | Self FK → `RefreshTokens.RefreshTokenId` |
-
-Index：`IX_RefreshTokens_Family(TokenFamily)`。
-
-### WorkItems
-
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `WorkItemId` | `uniqueidentifier` | 否 | PK |
-| `Title` | `nvarchar(200)` | 否 | 標題 |
-| `Description` | `nvarchar(4000)` | 是 | 詳細內容 |
-| `CreatedBy` | `uniqueidentifier` | 否 | FK → `Accounts.AccountId` |
-| `CreatedAt` | `datetimeoffset(7)` | 否 | 建立時間 |
-| `UpdatedAt` | `datetimeoffset(7)` | 否 | 更新時間 |
-| `DeletedAt` | `datetimeoffset(7)` | 是 | 不為空表示已軟刪除 |
-| `DeletedBy` | `uniqueidentifier` | 是 | FK → `Accounts.AccountId` |
-| `RowVersion` | `rowversion` | 否 | 樂觀並行控制；API 以 Base64 `version` 傳遞 |
-
-Index：`IX_WorkItems_ActiveCreatedAt(DeletedAt, CreatedAt DESC)`。
-
-### UserWorkItemStates
-
-| Column | Type | Null | 說明 |
-| --- | --- | --- | --- |
-| `UserId` | `uniqueidentifier` | 否 | PK、FK → `Users.UserId` |
-| `WorkItemId` | `uniqueidentifier` | 否 | PK、FK → `WorkItems.WorkItemId` |
-| `IsConfirmed` | `bit` | 否 | 是否已確認 |
-| `ConfirmedAt` | `datetimeoffset(7)` | 是 | 最近確認時間；撤銷後為空 |
-| `UpdatedAt` | `datetimeoffset(7)` | 否 | 最近狀態更新時間 |
-
-複合主鍵確保同一使用者對同一 Work Item 只有一筆狀態。Work Item 軟刪除後保留此紀錄
-供稽核，不做 Cascade Delete。
-
-## Migration 規則
-
-- Migration 使用遞增編號，例如 `001_InitialSchema.sql`。
-- 已套用的 Migration 不得直接修改；Schema 變更應新增下一支 Script。
-- API 啟動不自行修改 Schema；由 `MyWorkItem.DatabaseMigrator` 負責 DbUp。
-- 所有時間使用 UTC `datetimeoffset(7)`，所有文字欄位使用 Unicode `nvarchar`。
+- 已套用的 Migration 不直接修改；所有升級由 DbUp 依序執行。
+- 升級 Script 先搬移既有角色、建立者與刪除者資料，再移除舊欄位與 `AccountRoles`。
+- 所有時間使用 UTC `datetimeoffset(7)`；文字欄位使用 Unicode `nvarchar`。
+- DbUp 的 `SchemaVersions` Journal Table 只記錄 Migration，不屬於業務模型。

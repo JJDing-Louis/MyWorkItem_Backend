@@ -93,8 +93,8 @@ public sealed class WorkItemService(IWorkItemRepository repository) : IWorkItemS
         Map(await repository.GetAsync(workItemId, userId, cancellationToken)
             ?? throw new NotFoundException("找不到指定的 Work Item。"));
 
-    public async Task<WorkItemResponse> CreateAsync(CreateWorkItemRequest request, Guid accountId, Guid userId, CancellationToken cancellationToken) =>
-        Map(await repository.CreateAsync(request.Title.Trim(), request.Description?.Trim(), accountId, userId, cancellationToken));
+    public async Task<WorkItemResponse> CreateAsync(CreateWorkItemRequest request, Guid userId, CancellationToken cancellationToken) =>
+        Map(await repository.CreateAsync(request.Title.Trim(), request.Description?.Trim(), userId, cancellationToken));
 
     public async Task<WorkItemResponse> UpdateAsync(Guid workItemId, UpdateWorkItemRequest request, Guid userId, CancellationToken cancellationToken)
     {
@@ -111,7 +111,7 @@ public sealed class WorkItemService(IWorkItemRepository repository) : IWorkItemS
         return Map(await repository.UpdateAsync(workItemId, request.Title.Trim(), request.Description?.Trim(), version, userId, cancellationToken));
     }
 
-    public Task DeleteAsync(Guid workItemId, Guid accountId, CancellationToken cancellationToken) => repository.DeleteAsync(workItemId, accountId, null, cancellationToken);
+    public Task DeleteAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken) => repository.DeleteAsync(workItemId, userId, null, cancellationToken);
     public Task ConfirmAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken) => repository.ConfirmAsync(workItemId, userId, cancellationToken);
     public Task RevokeConfirmationAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken) => repository.RevokeConfirmationAsync(workItemId, userId, cancellationToken);
     public Task ConfirmBatchAsync(IReadOnlyCollection<Guid> workItemIds, Guid userId, CancellationToken cancellationToken) => repository.ConfirmBatchAsync(workItemIds.Distinct().ToArray(), userId, cancellationToken);

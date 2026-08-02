@@ -16,9 +16,9 @@ public interface IWorkItemRepository
 {
     Task<PagedResult<WorkItemRecord>> ListAsync(Guid userId, int page, int pageSize, string? keyword, bool descending, CancellationToken cancellationToken);
     Task<WorkItemRecord?> GetAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
-    Task<WorkItemRecord> CreateAsync(string title, string? description, Guid accountId, Guid userId, CancellationToken cancellationToken);
+    Task<WorkItemRecord> CreateAsync(string title, string? description, Guid userId, CancellationToken cancellationToken);
     Task<WorkItemRecord> UpdateAsync(Guid workItemId, string title, string? description, byte[] rowVersion, Guid userId, CancellationToken cancellationToken);
-    Task DeleteAsync(Guid workItemId, Guid accountId, byte[]? rowVersion, CancellationToken cancellationToken);
+    Task DeleteAsync(Guid workItemId, Guid userId, byte[]? rowVersion, CancellationToken cancellationToken);
     Task ConfirmAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
     Task RevokeConfirmationAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
     Task ConfirmBatchAsync(IReadOnlyCollection<Guid> workItemIds, Guid userId, CancellationToken cancellationToken);
@@ -70,9 +70,9 @@ public interface IWorkItemService
 {
     Task<PagedResult<WorkItemResponse>> ListAsync(Guid userId, int page, int pageSize, string? keyword, bool descending, CancellationToken cancellationToken);
     Task<WorkItemResponse> GetAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
-    Task<WorkItemResponse> CreateAsync(CreateWorkItemRequest request, Guid accountId, Guid userId, CancellationToken cancellationToken);
+    Task<WorkItemResponse> CreateAsync(CreateWorkItemRequest request, Guid userId, CancellationToken cancellationToken);
     Task<WorkItemResponse> UpdateAsync(Guid workItemId, UpdateWorkItemRequest request, Guid userId, CancellationToken cancellationToken);
-    Task DeleteAsync(Guid workItemId, Guid accountId, CancellationToken cancellationToken);
+    Task DeleteAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
     Task ConfirmAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
     Task RevokeConfirmationAsync(Guid workItemId, Guid userId, CancellationToken cancellationToken);
     Task ConfirmBatchAsync(IReadOnlyCollection<Guid> workItemIds, Guid userId, CancellationToken cancellationToken);

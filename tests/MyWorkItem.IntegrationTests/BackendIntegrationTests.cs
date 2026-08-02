@@ -1,8 +1,10 @@
 using System.Net;
 using System.Net.Http.Json;
 using Bogus;
+using Dapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.SqlClient;
 using MyWorkItem.Application;
 using MyWorkItem.DatabaseMigrator;
 using Testcontainers.MsSql;
@@ -22,7 +24,8 @@ public sealed class BackendIntegrationTests
             .Build();
         await _database.StartAsync();
         var connectionString = _database.GetConnectionString();
-        DatabaseUpgrade.Run(connectionString).Successful.Should().BeTrue();
+        var upgrade = DatabaseUpgrade.Run(connectionString);
+        upgrade.Successful.Should().BeTrue(upgrade.Error?.ToString());
         await SeedData.ApplyAsync(connectionString, "Test");
         _factory = new MyWorkItemApiFactory(connectionString);
     }
@@ -45,6 +48,39 @@ public sealed class BackendIntegrationTests
     public void Migration_重複執行仍成功()
     {
         DatabaseUpgrade.Run(_database.GetConnectionString()).Successful.Should().BeTrue();
+    }
+
+    [Test]
+    public async Task Schema_對齊草稿且保留個人確認狀態設計()
+    {
+        await using var connection = new SqlConnection(_database.GetConnectionString());
+        var columns = (await connection.QueryAsync<string>("""
+            SELECT TABLE_NAME + '.' + COLUMN_NAME
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE TABLE_NAME IN ('Accounts', 'Users', 'UserRoles', 'RoleFunctions', 'WorkItems', 'WorkItemStatuses', 'UserWorkItemStates');
+            """)).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var tables = (await connection.QueryAsync<string>("""
+            SELECT TABLE_NAME
+            FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_TYPE = 'BASE TABLE';
+            """)).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        columns.Should().Contain([
+            "Accounts.UserId",
+            "UserRoles.UserId",
+            "UserRoles.RoleId",
+            "UserRoles.IsEnabled",
+            "RoleFunctions.IsEnabled",
+            "WorkItems.CreatedUserId",
+            "WorkItems.AssignedUserId",
+            "WorkItems.WorkItemStatusId",
+            "UserWorkItemStates.IsConfirmed"
+        ]);
+        tables.Should().Contain("WorkItemStatuses");
+        tables.Should().NotContain("AccountRoles");
+
+        var statusCodes = (await connection.QueryAsync<string>("SELECT Code FROM WorkItemStatuses ORDER BY Code;")).ToArray();
+        statusCodes.Should().BeEquivalentTo(["Active", "Closed"]);
     }
 
     [Test]
