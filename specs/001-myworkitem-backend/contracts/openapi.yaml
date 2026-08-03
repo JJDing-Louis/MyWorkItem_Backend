@@ -1,0 +1,361 @@
+openapi: 3.1.0
+info:
+  title: MyWorkItem Backend API
+  version: v1
+servers:
+  - url: http://localhost:5080
+tags:
+  - name: Authentication
+  - name: WorkItems
+  - name: Users
+  - name: Roles
+  - name: Functions
+paths:
+  /api/v1/auth/csrf:
+    get:
+      tags: [Authentication]
+      operationId: getCsrfToken
+      responses:
+        '204': { description: CSRF Cookie 已設定 }
+  /api/v1/auth/login:
+    post:
+      tags: [Authentication]
+      operationId: login
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginRequest' }
+      responses:
+        '204': { description: 登入成功並設定 Cookie }
+        '400': { $ref: '#/components/responses/Problem' }
+        '401': { $ref: '#/components/responses/Problem' }
+  /api/v1/auth/refresh:
+    post:
+      tags: [Authentication]
+      operationId: refresh
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses:
+        '204': { description: Token 已輪替 }
+        '401': { $ref: '#/components/responses/Problem' }
+  /api/v1/auth/logout:
+    post:
+      tags: [Authentication]
+      operationId: logout
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses:
+        '204': { description: Token Family 已撤銷且 Cookie 已清除 }
+  /api/v1/auth/me:
+    get:
+      tags: [Authentication]
+      operationId: getCurrentUser
+      security: [{ cookieAuth: [] }]
+      responses:
+        '200':
+          description: 目前使用者
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CurrentUserResponse' }
+        '401': { $ref: '#/components/responses/Problem' }
+  /api/v1/work-items:
+    get:
+      tags: [WorkItems]
+      operationId: listWorkItems
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: page, in: query, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: pageSize, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 20 } }
+        - { name: keyword, in: query, schema: { type: string } }
+        - { name: sortDirection, in: query, schema: { type: string, enum: [asc, desc], default: desc } }
+        - { name: assignedUserId, in: query, schema: { type: string, format: uuid, nullable: true } }
+      responses:
+        '200':
+          description: 分頁 Work Item
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PagedWorkItems' }
+    post:
+      tags: [WorkItems]
+      operationId: createWorkItem
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateWorkItemRequest' }
+      responses:
+        '201':
+          description: 已建立
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WorkItemResponse' }
+        '400': { $ref: '#/components/responses/Problem' }
+        '403': { $ref: '#/components/responses/Problem' }
+  /api/v1/work-items/{workItemId}:
+    parameters:
+      - { name: workItemId, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      tags: [WorkItems]
+      operationId: getWorkItem
+      security: [{ cookieAuth: [] }]
+      responses:
+        '200':
+          description: Work Item 詳情
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WorkItemResponse' }
+        '404': { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [WorkItems]
+      operationId: updateWorkItem
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateWorkItemRequest' }
+      responses:
+        '200':
+          description: 已更新
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WorkItemResponse' }
+        '409': { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [WorkItems]
+      operationId: deleteWorkItem
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses:
+        '204': { description: 已軟刪除 }
+        '404': { $ref: '#/components/responses/Problem' }
+  /api/v1/work-items/{workItemId}/confirmation:
+    parameters:
+      - { name: workItemId, in: path, required: true, schema: { type: string, format: uuid } }
+      - { $ref: '#/components/parameters/CsrfHeader' }
+    put:
+      tags: [WorkItems]
+      operationId: confirmWorkItem
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: 已確認 }
+        '404': { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [WorkItems]
+      operationId: revokeWorkItemConfirmation
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: 已撤銷 }
+  /api/v1/work-items/confirmations/batch:
+    post:
+      tags: [WorkItems]
+      operationId: confirmWorkItemsBatch
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BatchConfirmationRequest' }
+      responses:
+        '204': { description: 全部確認成功 }
+        '400': { $ref: '#/components/responses/Problem' }
+        '404': { $ref: '#/components/responses/Problem' }
+  /api/v1/users:
+    get:
+      tags: [Users]
+      operationId: listUsers
+      security: [{ cookieAuth: [] }]
+      responses: { '200': { description: 使用者列表 } }
+    post:
+      tags: [Users]
+      operationId: createUser
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses: { '201': { description: 已建立 }, '400': { $ref: '#/components/responses/Problem' } }
+  /api/v1/users/{userId}:
+    parameters: [{ name: userId, in: path, required: true, schema: { type: string, format: uuid } }]
+    get:
+      tags: [Users]
+      operationId: getUser
+      security: [{ cookieAuth: [] }]
+      responses: { '200': { description: 使用者詳情 }, '404': { $ref: '#/components/responses/Problem' } }
+    put:
+      tags: [Users]
+      operationId: updateUser
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses: { '200': { description: 已更新 } }
+  /api/v1/users/{userId}/status:
+    put:
+      tags: [Users]
+      operationId: setUserStatus
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: userId, in: path, required: true, schema: { type: string, format: uuid } }
+        - { $ref: '#/components/parameters/CsrfHeader' }
+      responses: { '204': { description: 狀態已更新 } }
+  /api/v1/users/{userId}/password:
+    put:
+      tags: [Users]
+      operationId: resetPassword
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: userId, in: path, required: true, schema: { type: string, format: uuid } }
+        - { $ref: '#/components/parameters/CsrfHeader' }
+      responses: { '204': { description: 密碼已重設 } }
+  /api/v1/users/{userId}/roles:
+    put:
+      tags: [Users]
+      operationId: replaceUserRoles
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: userId, in: path, required: true, schema: { type: string, format: uuid } }
+        - { $ref: '#/components/parameters/CsrfHeader' }
+      responses: { '204': { description: 角色已覆寫 } }
+  /api/v1/roles:
+    get:
+      tags: [Roles]
+      operationId: listRoles
+      security: [{ cookieAuth: [] }]
+      responses: { '200': { description: 角色列表 } }
+    post:
+      tags: [Roles]
+      operationId: createRole
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses: { '201': { description: 已建立角色 } }
+  /api/v1/roles/{roleId}:
+    put:
+      tags: [Roles]
+      operationId: updateRole
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: roleId, in: path, required: true, schema: { type: string, format: uuid } }
+        - { $ref: '#/components/parameters/CsrfHeader' }
+      responses: { '200': { description: 已更新角色 } }
+  /api/v1/roles/{roleId}/functions:
+    put:
+      tags: [Roles]
+      operationId: replaceRoleFunctions
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: roleId, in: path, required: true, schema: { type: string, format: uuid } }
+        - { $ref: '#/components/parameters/CsrfHeader' }
+      responses: { '204': { description: Functions 已覆寫 } }
+  /api/v1/functions:
+    get:
+      tags: [Functions]
+      operationId: listFunctions
+      security: [{ cookieAuth: [] }]
+      responses: { '200': { description: Function 列表 } }
+    post:
+      tags: [Functions]
+      operationId: createFunction
+      security: [{ cookieAuth: [] }]
+      parameters: [{ $ref: '#/components/parameters/CsrfHeader' }]
+      responses: { '201': { description: 已建立 Function } }
+  /api/v1/functions/{functionId}:
+    put:
+      tags: [Functions]
+      operationId: updateFunction
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - { name: functionId, in: path, required: true, schema: { type: string, format: uuid } }
+        - { $ref: '#/components/parameters/CsrfHeader' }
+      responses: { '200': { description: 已更新 Function } }
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: mwi_access
+      description: 由 login endpoint 設定，Swagger 不需手動輸入。
+  parameters:
+    CsrfHeader:
+      name: X-CSRF-TOKEN
+      in: header
+      required: true
+      schema: { type: string }
+  responses:
+    Problem:
+      description: ProblemDetails
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/ProblemDetails' }
+  schemas:
+    LoginRequest:
+      type: object
+      required: [loginName, password]
+      properties:
+        loginName: { type: string, maxLength: 100 }
+        password: { type: string, format: password, minLength: 12, writeOnly: true }
+    CurrentUserResponse:
+      type: object
+      required: [userId, accountId, loginName, name, roles, functions]
+      properties:
+        userId: { type: string, format: uuid }
+        accountId: { type: string, format: uuid }
+        loginName: { type: string }
+        name: { type: string }
+        roles: { type: array, items: { type: string } }
+        functions: { type: array, items: { type: string } }
+    CreateWorkItemRequest:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 200 }
+        description: { type: [string, 'null'] }
+        assignedUserId: { type: [string, 'null'], format: uuid }
+    UpdateWorkItemRequest:
+      allOf:
+        - { $ref: '#/components/schemas/CreateWorkItemRequest' }
+        - type: object
+          required: [rowVersion]
+          properties:
+            rowVersion: { type: string, format: byte }
+    WorkItemResponse:
+      type: object
+      required: [workItemId, title, createdByUserId, createdAt, updatedAt, statusCode, isConfirmed, rowVersion]
+      properties:
+        workItemId: { type: string, format: uuid }
+        title: { type: string }
+        description: { type: [string, 'null'] }
+        createdByUserId: { type: string, format: uuid }
+        assignedUserId: { type: [string, 'null'], format: uuid }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        statusCode: { type: string, enum: [Pending, Confirm] }
+        isConfirmed: { type: boolean }
+        confirmedAt: { type: [string, 'null'], format: date-time }
+        rowVersion: { type: string, format: byte }
+    PagedWorkItems:
+      type: object
+      required: [items, page, pageSize, totalCount, totalPages]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/WorkItemResponse' } }
+        page: { type: integer }
+        pageSize: { type: integer }
+        totalCount: { type: integer }
+        totalPages: { type: integer }
+    BatchConfirmationRequest:
+      type: object
+      required: [workItemIds]
+      properties:
+        workItemIds:
+          type: array
+          minItems: 1
+          maxItems: 100
+          uniqueItems: true
+          items: { type: string, format: uuid }
+    ProblemDetails:
+      type: object
+      properties:
+        type: { type: string }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string }

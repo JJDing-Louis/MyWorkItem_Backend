@@ -1,0 +1,15 @@
+.git
+.idea
+.vscode
+**/bin
+**/obj
+TestResults
+coverage
+.env
+.env.*
+!.env.example
+*.user
+*.suo
+*.log
+Draft
+specs

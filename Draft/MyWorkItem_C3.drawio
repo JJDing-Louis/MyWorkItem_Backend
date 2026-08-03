@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-08-04T00:00:00.000Z" agent="Codex" version="24.7.17" pages="1">
+  <diagram id="myworkitem-c3" name="MyWorkItem C3">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="MyWorkItem Backend－C3 Component Diagram" style="text;html=1;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#0F172A;" vertex="1" parent="1">
+          <mxGeometry x="430" y="20" width="740" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="worker" value="Worker" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="110" width="70" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="manager" value="Manager／Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="110" width="70" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="frontend" value="MyWorkItem Frontend&#xa;Vue 3 Web App（獨立 Repository）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="100" width="460" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="api-boundary" value="MyWorkItem.Api" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;fillColor=none;strokeColor=#64748B;fontColor=#334155;fontSize=16;fontStyle=1;verticalAlign=top;align=left;spacingTop=8;spacingLeft=10;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="260" width="1100" height="350" as="geometry"/>
+        </mxCell>
+        <mxCell id="pipeline" value="HTTP Security Pipeline&#xa;CORS → Rate Limit → JWT Cookie → CSRF → Function Authorization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="300" width="660" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="auth-controller" value="AuthenticationController&#xa;CSRF／Login／Refresh／Logout／Me" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="430" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="work-controller" value="WorkItemsController&#xa;Query／CRUD／Assign／Confirmation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="430" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="users-controller" value="UsersController&#xa;Account／Profile／Roles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="430" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="roles-controller" value="RolesController&#xa;Role／RoleFunctions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="910" y="430" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="functions-controller" value="FunctionsController&#xa;Function Definitions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="430" width="190" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="application-boundary" value="MyWorkItem.Application" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;fillColor=none;strokeColor=#64748B;fontColor=#334155;fontSize=16;fontStyle=1;verticalAlign=top;align=left;spacingTop=8;spacingLeft=10;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="650" width="1100" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="contracts" value="Contracts／DTO&#xa;DataAnnotations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#7C3AED;fontColor=#4C1D95;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="700" width="260" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="interfaces" value="Use Case Interfaces&#xa;Authentication／WorkItem／User／Permission" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#7C3AED;fontColor=#4C1D95;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="700" width="560" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="infra-boundary" value="MyWorkItem.Infrastructure" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;fillColor=none;strokeColor=#64748B;fontColor=#334155;fontSize=16;fontStyle=1;verticalAlign=top;align=left;spacingTop=8;spacingLeft=10;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="840" width="1100" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="auth-service" value="AuthenticationService&#xa;JWT／Refresh／Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="900" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="work-service" value="WorkItemService&#xa;Dapper＋SqlKata／Transactions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="900" width="250" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="user-service" value="UserAdminService&#xa;Users／Accounts／UserRoles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="900" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="permission-service" value="PermissionAdminService&#xa;Roles／Functions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="900" width="230" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="migrator" value="DatabaseMigrator&#xa;DbUp＋Development Seeder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="1070" width="260" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="sql-init" value="sqlserver-init&#xa;EnsureLocalLogin.sql" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="1070" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="database" value="MyWorkItem Database&#xa;SQL Server 2022&#xa;12 Business Tables＋DbUp Journal" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#D1FAE5;strokeColor=#059669;fontColor=#064E3B;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1050" width="360" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e-worker-front" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="worker" target="frontend"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-manager-front" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="manager" target="frontend"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-front-pipeline" value="REST JSON／Cookie＋CSRF" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2563EB;" edge="1" parent="1" source="frontend" target="pipeline"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-p-auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="pipeline" target="auth-controller"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-p-work" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="pipeline" target="work-controller"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-p-users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="pipeline" target="users-controller"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-p-roles" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="pipeline" target="roles-controller"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-p-functions" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#64748B;" edge="1" parent="1" source="pipeline" target="functions-controller"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-controller-contracts" value="Request／Response DTO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#7C3AED;" edge="1" parent="1" source="work-controller" target="contracts"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-controller-interfaces" value="Use Cases" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#7C3AED;" edge="1" parent="1" source="users-controller" target="interfaces"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-interface-auth" value="implementation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#16A34A;" edge="1" parent="1" source="interfaces" target="auth-service"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-interface-work" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#16A34A;" edge="1" parent="1" source="interfaces" target="work-service"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-interface-user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#16A34A;" edge="1" parent="1" source="interfaces" target="user-service"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-interface-permission" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#16A34A;" edge="1" parent="1" source="interfaces" target="permission-service"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-auth-db" value="Dapper" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#059669;" edge="1" parent="1" source="auth-service" target="database"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-work-db" value="Dapper＋SqlKata" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#059669;" edge="1" parent="1" source="work-service" target="database"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-user-db" value="Dapper" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#059669;" edge="1" parent="1" source="user-service" target="database"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-permission-db" value="Dapper" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#059669;" edge="1" parent="1" source="permission-service" target="database"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-init-db" value="建立 Local Login" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#D97706;" edge="1" parent="1" source="sql-init" target="database"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-migrator-db" value="DbUp／Seeder" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#D97706;" edge="1" parent="1" source="migrator" target="database"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

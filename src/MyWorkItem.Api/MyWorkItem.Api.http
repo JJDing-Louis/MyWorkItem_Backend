@@ -1,0 +1,16 @@
+@HostAddress = http://localhost:5080
+
+GET {{HostAddress}}/health
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/swagger/v1/swagger.json
+Accept: application/json
+
+###
+
+# Cookie／CSRF 登入流程建議直接使用 Swagger UI；HTTP Client 需先保存此回應 Cookie，
+# 再將 XSRF-TOKEN Cookie 的值送入後續 unsafe request 的 X-CSRF-TOKEN Header。
+GET {{HostAddress}}/api/v1/auth/csrf
+
