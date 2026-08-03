@@ -17,6 +17,26 @@ services:
       retries: 20
       start_period: 30s
 
+  sqlserver-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    environment:
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?請在 .env 設定符合 SQL Server 原則的 MSSQL_SA_PASSWORD}
+      MSSQL_APP_PASSWORD: ${MSSQL_APP_PASSWORD:?請在 .env 設定 MSSQL_APP_PASSWORD}
+    volumes:
+      - ./database/scripts/EnsureLocalLogin.sql:/scripts/EnsureLocalLogin.sql:ro
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - >-
+        /opt/mssql-tools18/bin/sqlcmd
+        -S sqlserver -U sa -P "$$MSSQL_SA_PASSWORD" -C -b
+        -v AppPassword="$$MSSQL_APP_PASSWORD"
+        -i /scripts/EnsureLocalLogin.sql
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    restart: "no"
+
   migrator:
     build:
       context: .
@@ -24,13 +44,13 @@ services:
     entrypoint: ["dotnet", "/app/migrator/MyWorkItem.DatabaseMigrator.dll"]
     environment:
       DOTNET_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: Server=sqlserver,1433;Database=MyWorkItem;User Id=sa;Password=${MSSQL_SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
-      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-Admin123!Demo}
-      SEED_MANAGER_PASSWORD: ${SEED_MANAGER_PASSWORD:-Manager123!Demo}
-      SEED_WORKER_PASSWORD: ${SEED_WORKER_PASSWORD:-Worker123!Demo}
+      ConnectionStrings__DefaultConnection: Server=sqlserver,1433;Database=MyWorkItem;User Id=myworkitem;Password=${MSSQL_APP_PASSWORD};Encrypt=True;TrustServerCertificate=True
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-Admin}
+      SEED_MANAGER_PASSWORD: ${SEED_MANAGER_PASSWORD:-manager}
+      SEED_WORKER_PASSWORD: ${SEED_WORKER_PASSWORD:-Worker}
     depends_on:
-      sqlserver:
-        condition: service_healthy
+      sqlserver-init:
+        condition: service_completed_successfully
 
   api:
     build:
@@ -39,7 +59,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__DefaultConnection: Server=sqlserver,1433;Database=MyWorkItem;User Id=sa;Password=${MSSQL_SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+      ConnectionStrings__DefaultConnection: Server=sqlserver,1433;Database=MyWorkItem;User Id=myworkitem;Password=${MSSQL_APP_PASSWORD};Encrypt=True;TrustServerCertificate=True
       Jwt__SigningKey: ${JWT_SIGNING_KEY:?請在 .env 設定 JWT_SIGNING_KEY}
       Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN:-http://localhost:5173}
       Swagger__Enabled: "true"

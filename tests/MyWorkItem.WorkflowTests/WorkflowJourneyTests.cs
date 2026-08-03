@@ -56,7 +56,7 @@ public sealed class WorkflowJourneyTests
     public async Task WF01_缺少Csrf的Login應回傳400ProblemDetails()
     {
         using var client = factory.CreateClient();
-        var response = await client.PostAsJsonAsync("/api/v1/auth/login", new LoginRequest("Admin", "Admin123!Demo"));
+        var response = await client.PostAsJsonAsync("/api/v1/auth/login", new LoginRequest("Admin", "Admin"));
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         response.Content.Headers.ContentType?.MediaType.Should().Be("application/problem+json");
     }
@@ -64,7 +64,7 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF02_CsrfLoginMe應完成且不需手動JWT()
     {
-        using var session = await LoginAsync("Worker", "Worker123!Demo");
+        using var session = await LoginAsync("Worker", "Worker");
         var me = await session.Client.GetFromJsonAsync<CurrentUserResponse>("/api/v1/auth/me");
         me.Should().NotBeNull();
         me!.LoginName.Should().Be("Worker");
@@ -74,7 +74,7 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF03_Refresh應輪替且舊Token重播會撤銷Family()
     {
-        using var session = await LoginAsync("Worker", "Worker123!Demo");
+        using var session = await LoginAsync("Worker", "Worker");
         var oldRefreshToken = session.RefreshToken;
         (await session.PostAsync("/api/v1/auth/refresh", null)).StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -92,12 +92,16 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF04_列表詳情與AssignedUserId篩選應保留個人狀態()
     {
-        using var admin = await LoginAsync("Admin", "Admin123!Demo");
+        using var admin = await LoginAsync("Admin", "Admin");
         var users = await admin.GetFromJsonAsync<UserResponse[]>("/api/v1/users");
         var worker = users!.Single(user => user.LoginName == "Worker");
         var created = await CreateWorkItemAsync(admin, "WF04 指派篩選", worker.UserId);
 
-        using var workerSession = await LoginAsync("Worker", "Worker123!Demo");
+        using var workerSession = await LoginAsync("Worker", "Worker");
+        var userOptions = await workerSession.GetFromJsonAsync<WorkItemUserOptionResponse[]>(
+            "/api/v1/work-items/user-options");
+        userOptions.Should().Contain(user =>
+            user.UserId == worker.UserId && user.LoginName == "Worker" && user.IsEnabled);
         var list = await workerSession.GetFromJsonAsync<PagedResponse<WorkItemResponse>>(
             $"/api/v1/work-items?assignedUserId={worker.UserId}");
         list!.Items.Should().ContainSingle(item => item.WorkItemId == created.WorkItemId && item.AssignedUserId == worker.UserId);
@@ -108,10 +112,10 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF05_不同使用者確認狀態應彼此獨立且可撤銷()
     {
-        using var admin = await LoginAsync("Admin", "Admin123!Demo");
+        using var admin = await LoginAsync("Admin", "Admin");
         var created = await CreateWorkItemAsync(admin, "WF05 個人確認測試", null);
 
-        using var worker = await LoginAsync("Worker", "Worker123!Demo");
+        using var worker = await LoginAsync("Worker", "Worker");
         var confirm = await worker.PutAsync($"/api/v1/work-items/{created.WorkItemId}/confirmation", null);
         confirm.StatusCode.Should().Be(HttpStatusCode.NoContent);
         var workerItem = await worker.GetFromJsonAsync<WorkItemResponse>($"/api/v1/work-items/{created.WorkItemId}");
@@ -128,7 +132,7 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF07_CRUD應寫History且舊RowVersion回409()
     {
-        using var admin = await LoginAsync("Admin", "Admin123!Demo");
+        using var admin = await LoginAsync("Admin", "Admin");
         var created = await CreateWorkItemAsync(admin, "WF07 原始標題", null);
         var update = new UpdateWorkItemRequest("WF07 更新標題", "更新後快照", null, created.RowVersion);
         var updatedResponse = await admin.PutAsJsonAsync($"/api/v1/work-items/{created.WorkItemId}", update);
@@ -152,10 +156,10 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF06_批次確認含無效Id時應全部Rollback()
     {
-        using var admin = await LoginAsync("Admin", "Admin123!Demo");
+        using var admin = await LoginAsync("Admin", "Admin");
         var first = await CreateWorkItemAsync(admin, "WF06 第一筆", null);
         var second = await CreateWorkItemAsync(admin, "WF06 第二筆", null);
-        using var worker = await LoginAsync("Worker", "Worker123!Demo");
+        using var worker = await LoginAsync("Worker", "Worker");
         var response = await worker.PostAsJsonAsync("/api/v1/work-items/confirmations/batch",
             new BatchConfirmationRequest([first.WorkItemId, second.WorkItemId, Guid.NewGuid()]));
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -170,8 +174,8 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF08_角色權限變更應立即生效且Manager不能管理Roles()
     {
-        using var admin = await LoginAsync("Admin", "Admin123!Demo");
-        using var manager = await LoginAsync("Manager", "Manager123!Demo");
+        using var admin = await LoginAsync("Admin", "Admin");
+        using var manager = await LoginAsync("Manager", "manager");
         (await manager.Client.GetAsync("/api/v1/roles")).StatusCode.Should().Be(HttpStatusCode.Forbidden);
 
         var users = await admin.GetFromJsonAsync<UserResponse[]>("/api/v1/users");
@@ -180,7 +184,7 @@ public sealed class WorkflowJourneyTests
         var managerRole = roles!.Single(role => role.Code == "Manager");
         var workerRole = roles!.Single(role => role.Code == "Worker");
         var created = await CreateWorkItemAsync(admin, "WF08 權限即時生效", null);
-        using var workerSession = await LoginAsync("Worker", "Worker123!Demo");
+        using var workerSession = await LoginAsync("Worker", "Worker");
 
         (await admin.PutAsJsonAsync($"/api/v1/users/{worker.UserId}/roles",
             new ReplaceUserRolesRequest([managerRole.Id]))).StatusCode.Should().Be(HttpStatusCode.NoContent);
@@ -196,7 +200,7 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF09_Logout應撤銷Family清除Cookie並使Me失效()
     {
-        using var session = await LoginAsync("Worker", "Worker123!Demo");
+        using var session = await LoginAsync("Worker", "Worker");
         (await session.PostAsync("/api/v1/auth/logout", null)).StatusCode.Should().Be(HttpStatusCode.NoContent);
         (await session.Client.GetAsync("/api/v1/auth/me")).StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         await using var connection = new SqlConnection(connectionString);
@@ -209,7 +213,7 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF10_AdminManagerWorker完整旅程應成功()
     {
-        using var admin = await LoginAsync("Admin", "Admin123!Demo");
+        using var admin = await LoginAsync("Admin", "Admin");
         var roles = await admin.GetFromJsonAsync<PermissionItemResponse[]>("/api/v1/roles");
         var workerRole = roles!.Single(role => role.Code == "Worker");
         var loginName = $"Journey{Guid.NewGuid():N}"[..18];
@@ -218,7 +222,7 @@ public sealed class WorkflowJourneyTests
         createUserResponse.StatusCode.Should().Be(HttpStatusCode.Created);
         var user = (await createUserResponse.Content.ReadFromJsonAsync<UserResponse>())!;
 
-        using var manager = await LoginAsync("Manager", "Manager123!Demo");
+        using var manager = await LoginAsync("Manager", "manager");
         var item = await CreateWorkItemAsync(manager, "WF10 完整旅程", user.UserId);
         using var worker = await LoginAsync(loginName, "Journey123!Password");
         (await worker.PutAsync($"/api/v1/work-items/{item.WorkItemId}/confirmation", null))
@@ -230,7 +234,7 @@ public sealed class WorkflowJourneyTests
     [Test]
     public async Task WF11_Swagger等價流程可自動CookieCsrf登入RefreshLogout()
     {
-        using var session = await LoginAsync("Admin", "Admin123!Demo");
+        using var session = await LoginAsync("Admin", "Admin");
         (await session.Client.GetAsync("/api/v1/auth/me")).StatusCode.Should().Be(HttpStatusCode.OK);
         (await CreateWorkItemAsync(session, "WF11 Swagger Journey", null)).Should().NotBeNull();
         (await session.PostAsync("/api/v1/auth/refresh", null)).StatusCode.Should().Be(HttpStatusCode.OK);

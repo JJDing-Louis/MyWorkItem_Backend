@@ -52,7 +52,7 @@ public sealed class SecurityOperationFilter : IOperationFilter
 
         var example = context.ApiDescription.RelativePath switch
         {
-            "api/v1/auth/login" => """{"loginName":"Admin","password":"DemoPassword123!"}""",
+            "api/v1/auth/login" => """{"loginName":"Admin","password":"Admin"}""",
             "api/v1/work-items" when context.ApiDescription.HttpMethod == "POST" =>
                 """{"title":"範例 Work Item","description":"範例說明","assignedUserId":null}""",
             var path when path?.StartsWith("api/v1/work-items/{workItemId}", StringComparison.Ordinal) == true &&

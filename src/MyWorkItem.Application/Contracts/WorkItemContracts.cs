@@ -36,6 +36,12 @@ public sealed record WorkItemResponse(
     DateTimeOffset? ConfirmedAt,
     string RowVersion);
 
+public sealed record WorkItemUserOptionResponse(
+    Guid UserId,
+    string LoginName,
+    string Name,
+    bool IsEnabled);
+
 public sealed record PagedResponse<T>(
     IReadOnlyCollection<T> Items,
     int Page,

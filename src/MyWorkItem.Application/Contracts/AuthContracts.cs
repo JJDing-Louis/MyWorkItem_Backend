@@ -4,7 +4,7 @@ namespace MyWorkItem.Application.Contracts;
 
 public sealed record LoginRequest(
     [param: Required, MaxLength(100)] string LoginName,
-    [param: Required, MinLength(12)] string Password);
+    [param: Required] string Password);
 
 public sealed record CurrentUserResponse(
     Guid UserId,

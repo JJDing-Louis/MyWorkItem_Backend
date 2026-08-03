@@ -53,12 +53,22 @@ public sealed class DatabaseAndOpenApiTests
         }
     }
 
-    [Test]
-    public async Task AuthenticationService_應可使用Seed帳號登入()
+    [TestCase("Admin", "Admin")]
+    [TestCase("Lisa1150803", "Test")]
+    [TestCase("James1150803", "Test")]
+    [TestCase("Emily1150803", "Test")]
+    [TestCase("Daniel1150803", "Test")]
+    [TestCase("Sophia1150803", "Test")]
+    [TestCase("Michael1150803", "Test")]
+    [TestCase("Olivia1150803", "Test")]
+    [TestCase("Ethan1150803", "Test")]
+    [TestCase("Ava1150803", "Test")]
+    [TestCase("Noah1150803", "Test")]
+    public async Task AuthenticationService_應可使用Seed帳號登入(string loginName, string password)
     {
         using var scope = factory.Services.CreateScope();
         var service = scope.ServiceProvider.GetRequiredService<IAuthenticationService>();
-        var result = await service.LoginAsync("Admin", "Admin123!Demo", CancellationToken.None);
+        var result = await service.LoginAsync(loginName, password, CancellationToken.None);
         result.Should().NotBeNull();
     }
 
@@ -93,10 +103,12 @@ public sealed class DatabaseAndOpenApiTests
         root.GetProperty("info").GetProperty("title").GetString().Should().Be("MyWorkItem Backend API");
         root.GetProperty("paths").TryGetProperty("/api/v1/auth/login", out _).Should().BeTrue();
         root.GetProperty("paths").TryGetProperty("/api/v1/work-items", out var workItems).Should().BeTrue();
+        root.GetProperty("paths").TryGetProperty("/api/v1/work-items/user-options", out _).Should().BeTrue();
         workItems.GetProperty("post").GetProperty("parameters").EnumerateArray()
             .Should().Contain(parameter => parameter.GetProperty("name").GetString() == "X-CSRF-TOKEN");
         json.Should().Contain("CookieAuthentication");
-        json.Should().Contain("DemoPassword123!");
+        json.Should().Contain("\"loginName\": \"Admin\"");
+        json.Should().Contain("\"password\": \"Admin\"");
         json.Should().NotContain("PasswordHash");
         json.Should().NotContain("TokenHash");
     }

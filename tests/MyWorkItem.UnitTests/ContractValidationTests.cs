@@ -8,10 +8,10 @@ namespace MyWorkItem.UnitTests;
 public sealed class ContractValidationTests
 {
     [Test]
-    public void LoginRequest_短密碼應驗證失敗()
+    public void LoginRequest_短測試密碼應允許送往帳密驗證()
     {
-        var request = new LoginRequest(new Faker().Internet.UserName(), "TooShort1!");
-        Validate(request).Should().Contain(result => result.MemberNames.Contains(nameof(LoginRequest.Password)));
+        var request = new LoginRequest(new Faker().Internet.UserName(), "Admin");
+        Validate(request).Should().NotContain(result => result.MemberNames.Contains(nameof(LoginRequest.Password)));
     }
 
     [Test]

@@ -54,6 +54,22 @@ public sealed class WorkItemService(IDbConnectionFactory connectionFactory, IClo
             totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)query.PageSize));
     }
 
+    public async Task<IReadOnlyCollection<WorkItemUserOptionResponse>> GetUserOptionsAsync(
+        CancellationToken cancellationToken)
+    {
+        await using var connection = connectionFactory.CreateConnection();
+        await connection.OpenAsync(cancellationToken);
+        var users = await connection.QueryAsync<WorkItemUserOptionResponse>(new CommandDefinition(
+            """
+            SELECT u.UserId, a.LoginName, u.Name, a.IsEnabled
+            FROM dbo.Users u
+            JOIN dbo.Accounts a ON a.UserId = u.UserId
+            ORDER BY u.Name, a.LoginName
+            """,
+            cancellationToken: cancellationToken));
+        return users.ToArray();
+    }
+
     public async Task<WorkItemResponse?> GetAsync(Guid userId, Guid workItemId, CancellationToken cancellationToken)
     {
         await using var connection = connectionFactory.CreateConnection();

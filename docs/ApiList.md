@@ -44,7 +44,7 @@
 限制：
 
 - `loginName`：必填，最長 100 字元。
-- `password`：必填，至少 12 字元。
+- `password`：必填；登入時不套用新密碼複雜度規則。
 
 ### Current User Response
 
@@ -64,6 +64,7 @@
 | Method | Path | Function 權限 | 成功 | 說明 |
 | --- | --- | --- | ---: | --- |
 | `GET` | `/api/v1/work-items` | `WorkItems.Read` | `200` | 分頁查詢有效 Work Item 與目前使用者的確認狀態 |
+| `GET` | `/api/v1/work-items/user-options` | `WorkItems.Read` | `200` | 取得 Work Item 顯示、指派與篩選所需的精簡使用者清單 |
 | `GET` | `/api/v1/work-items/{workItemId}` | `WorkItems.Read` | `200` | 取得 Work Item 詳情 |
 | `POST` | `/api/v1/work-items` | `WorkItems.Manage` | `201` | 建立 Work Item |
 | `PUT` | `/api/v1/work-items/{workItemId}` | `WorkItems.Manage` | `200` | 修改 Work Item，使用 RowVersion 控制並行更新 |
@@ -100,6 +101,10 @@ GET /api/v1/work-items?page=1&pageSize=20&keyword=文件&sortDirection=desc&assi
 
 - `title`：必填，最長 200 字元。
 - `assignedUserId`：可為 `null`，代表尚未指派。
+
+### Work Item User Options
+
+回傳 `userId`、`loginName`、`name` 與 `isEnabled`。清單包含停用帳號，以便顯示及篩選歷史資料；建立或修改 Work Item 時只能指派啟用帳號。
 
 ### Update Work Item Request
 

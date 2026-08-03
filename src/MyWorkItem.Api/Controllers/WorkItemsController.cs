@@ -19,6 +19,13 @@ public sealed class WorkItemsController(IWorkItemService service) : ControllerBa
         [FromQuery] WorkItemQuery query, CancellationToken cancellationToken) =>
         Ok(await service.QueryAsync(User.GetUserId(), query, cancellationToken));
 
+    [HttpGet("user-options")]
+    [Authorize(Policy = FunctionCodes.WorkItemsRead)]
+    [ProducesResponseType<IReadOnlyCollection<WorkItemUserOptionResponse>>(StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyCollection<WorkItemUserOptionResponse>>> GetUserOptions(
+        CancellationToken cancellationToken) =>
+        Ok(await service.GetUserOptionsAsync(cancellationToken));
+
     [HttpGet("{workItemId:guid}")]
     [Authorize(Policy = FunctionCodes.WorkItemsRead)]
     public async Task<ActionResult<WorkItemResponse>> Get(Guid workItemId, CancellationToken cancellationToken)

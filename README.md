@@ -6,7 +6,7 @@ MyWorkItem Backend 是 .NET 10 ASP.NET Core Web API。資料存取採 Dapper＋S
 
 ```bash
 cp .env.example .env
-# 修改 .env 中的 SA 密碼、JWT Key 與種子帳號密碼
+# 修改 .env 中的 SA 密碼、應用程式連線密碼、JWT Key 與種子帳號密碼
 docker compose up --build
 ```
 
@@ -23,18 +23,21 @@ Development／Test Seeder 會建立 `Admin`、`Manager`、`Worker`；密碼來�
 IDE 不會自動讀取 Compose 的 `.env`。先啟動資料庫與 Migrator：
 
 ```bash
-docker compose up sqlserver migrator
+docker compose up sqlserver sqlserver-init migrator
 ```
 
 再於 Rider Run Configuration 或 User Secrets 設定：
 
 ```text
-ConnectionStrings__DefaultConnection=Server=localhost,14333;Database=MyWorkItem;User Id=sa;Password=<本機密碼>;Encrypt=True;TrustServerCertificate=True
+ConnectionStrings__DefaultConnection=Server=localhost,14333;Database=MyWorkItem;User Id=myworkitem;Password=<本機應用程式密碼>;Encrypt=True;TrustServerCertificate=True
 Jwt__SigningKey=<至少 32 bytes 的本機 Key>
 Swagger__Enabled=true
 ```
 
 不要把上述實際值寫入 `appsettings*.json` 或提交 `.env`。
+
+Compose 以符合 SQL Server 原則的 `sa` 密碼初始化容器，再建立僅供本機測試的
+`myworkitem` Login。API、Migration 與 IDE 應使用 `MSSQL_APP_PASSWORD`，不直接使用 `sa`。
 
 ## Swagger 登入流程
 
