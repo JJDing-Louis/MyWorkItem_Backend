@@ -1,5 +1,24 @@
 # My Work Item 開發需求
 
+> 文件狀態：需求基線＋目前實作對照。前端頁面由獨立 Repository 負責；本 Repository 已實作後端 API、資料庫、Migration、Docker 與測試。正式 API 契約見 `docs/ApiList.md` 與 Swagger。
+
+## 目前實作對照
+
+| 需求 | 後端實作狀態 | 說明 |
+| --- | --- | --- |
+| JWT 登入 | 已實作 | Access／Refresh Token 使用 HttpOnly Cookie；Refresh 輪替與 Family 撤銷 |
+| CSRF | 已實作 | 所有 unsafe method 需 `X-CSRF-TOKEN` |
+| Dapper＋SqlKata | 已實作 | SqlKata 組查詢，Dapper 執行與映射 |
+| 多角色、多 Functions | 已實作 | `UserRoles`、`RoleFunctions` 與即時 Function Authorization |
+| Work Item CRUD | 已實作 | 可選指派、RowVersion、軟刪除、History after-snapshot |
+| 個人確認 | 已實作 | `(UserId, WorkItemId)` 隔離；單筆、撤銷、批次原子性 |
+| DB 版本控制 | 已實作 | DbUp `001_InitialSchema.sql`、`002_StaticData.sql` |
+| Docker | 已實作 | SQL Server、Init、Migrator、API 的依賴鏈 |
+| Swagger | 已實作 | Development UI、Cookie／CSRF 自動處理；Production 關閉 |
+| 自動化測試 | 已實作基線 | Unit、Integration、WF-01～WF-11；覆蓋仍需持續擴充 |
+
+已確認的產品規則：所有登入使用者可查看全部有效 Work Item；`AssignedUserId` 只作管理資訊與篩選；Checkbox 暫選只存在前端，後端只保存送出後的個人 Confirm 狀態。
+
 # 開發技術需求
 1. 專案為ASP.NET Core Web API的專案
 2. 專案的登入權限要有JWT的登入設計
@@ -138,7 +157,9 @@
 
 ```mermaid
 flowchart TD
-    Frontend["Front-End Web App"] --> Backend["Backend Application Server"]
-    Admin["Admin Panel"] --> Backend
-    Backend --> Database[("Relational Database")]
+    Worker["Worker"] --> Frontend["Vue 3 Frontend<br/>獨立 Repository"]
+    Manager["Manager／Admin"] --> Frontend
+    Frontend -->|"REST JSON<br/>Cookie＋CSRF"| Backend[".NET 10 Backend API"]
+    Backend -->|"Dapper＋SqlKata"| Database[("SQL Server 2022")]
+    Migrator["DbUp DatabaseMigrator"] --> Database
 ```

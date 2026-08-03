@@ -3,15 +3,18 @@
 本文件依目前 `MyWorkItem.Api` 的 Controller、Request／Response Contract 與 Middleware 實作整理。
 可執行的正式契約仍以 `/swagger/v1/swagger.json` 產生的 OpenAPI 文件為準。
 
+現況基準：`dev2`／`0f74ec3`。Docker 與 IDE 請只啟動其中一個 API Instance。
+
 ## 基本資訊
 
-- Development Base URL：`http://localhost:5080`
+- Docker Base URL：`http://localhost:5080`
+- Rider／`dotnet run` Base URL：`http://localhost:5170`
 - API Prefix：`/api/v1`
 - Swagger UI：`/swagger`
 - OpenAPI JSON：`/swagger/v1/swagger.json`
 - Health Check：`/health`
-- Controller API：27 個
-- 加上 Health Check：共 28 個 HTTP Endpoint
+- Controller API：28 個
+- 加上 Health Check：共 29 個 HTTP Endpoint
 
 ## 共通安全規則
 
@@ -278,6 +281,15 @@ Function 使用與 Role 相同的 Create／Update Request 格式，且 Code 建�
 | `GET` | `/swagger/v1/swagger.json` | 否 | OpenAPI v1 JSON；僅非 Production 且已啟用時提供 |
 
 Production 環境強制不公開 Swagger UI 與 OpenAPI JSON。
+
+## 啟動設定來源
+
+| 執行模式 | Database 連線 | JWT Key |
+| --- | --- | --- |
+| Docker Compose | `.env` 的 `MSSQL_APP_PASSWORD` 組成 `myworkitem` 連線字串 | `.env` 的 `JWT_SIGNING_KEY` |
+| Rider／`dotnet run` | ASP.NET Core User Secrets 的 `ConnectionStrings:DefaultConnection` | User Secrets 的 `Jwt:SigningKey` |
+
+`MSSQL_SA_PASSWORD` 只供 SQL Server 與 `sqlserver-init` 使用；API 與 Migrator 不直接使用 `sa`。修改 `.env` 不會自動變更既有 Volume 內已生效的 SQL Login 密碼，需讓 `sqlserver-init` 成功執行。
 
 ## 目前實作限制
 
