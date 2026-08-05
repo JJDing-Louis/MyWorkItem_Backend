@@ -242,6 +242,62 @@ public sealed class WorkflowJourneyTests
         (await session.Client.GetAsync("/api/v1/auth/me")).StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
+    [Test]
+    public async Task WF12_AdminPanel依指派人篩選應只回傳對應WorkItem()
+    {
+        using var manager = await LoginAsync("Manager", "manager");
+        var users = await manager.GetFromJsonAsync<WorkItemUserOptionResponse[]>(
+            "/api/v1/work-items/user-options");
+        var userOptions = users ?? throw new AssertionException("使用者選項不應為 null。");
+        var lisa = userOptions.Single(user => user.LoginName == "Lisa1150803");
+        var james = userOptions.Single(user => user.LoginName == "James1150803");
+        var lisaItem = await CreateWorkItemAsync(manager, "WF12 Lisa 指派項目", lisa.UserId);
+        var jamesItem = await CreateWorkItemAsync(manager, "WF12 James 指派項目", james.UserId);
+
+        var filtered = await manager.GetFromJsonAsync<PagedResponse<WorkItemResponse>>(
+            $"/api/v1/work-items?assignedUserId={lisa.UserId}");
+
+        filtered!.Items.Should().Contain(item => item.WorkItemId == lisaItem.WorkItemId);
+        filtered.Items.Should().NotContain(item => item.WorkItemId == jamesItem.WorkItemId);
+        filtered.Items.Should().OnlyContain(item => item.AssignedUserId == lisa.UserId);
+    }
+
+    [Test]
+    public async Task WF13_Admin應可修改其他建立人且非本人指派的WorkItem()
+    {
+        using var manager = await LoginAsync("Manager", "manager");
+        var users = await manager.GetFromJsonAsync<WorkItemUserOptionResponse[]>(
+            "/api/v1/work-items/user-options");
+        var worker = users!.Single(user => user.LoginName == "Worker");
+        var created = await CreateWorkItemAsync(manager, "WF13 Manager 建立項目", worker.UserId);
+
+        using var admin = await LoginAsync("Admin", "Admin");
+        var request = new UpdateWorkItemRequest(
+            "WF13 Admin 已修改",
+            "Admin 可修改任意 Work Item",
+            worker.UserId,
+            created.RowVersion);
+        var response = await admin.PutAsJsonAsync($"/api/v1/work-items/{created.WorkItemId}", request);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var updated = await response.Content.ReadFromJsonAsync<WorkItemResponse>();
+        updated!.Title.Should().Be("WF13 Admin 已修改");
+        updated.AssignedUserId.Should().Be(worker.UserId);
+
+        await using var connection = new SqlConnection(connectionString);
+        var changedByLoginName = await connection.QuerySingleAsync<string>(
+            """
+            SELECT account.LoginName
+            FROM dbo.WorkItemHistories history
+            JOIN dbo.Actions action ON action.ActionId = history.ActionId
+            JOIN dbo.Accounts account ON account.UserId = history.ChangedByUserId
+            WHERE history.WorkItemId = @WorkItemId AND action.Code = N'UPDATE'
+            ORDER BY history.HistoryId DESC
+            """,
+            new { created.WorkItemId });
+        changedByLoginName.Should().Be("Admin", "Admin 的編輯操作必須由資料庫稽核歷程保留");
+    }
+
     private async Task<ApiSession> LoginAsync(string loginName, string password)
     {
         var client = factory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = true });

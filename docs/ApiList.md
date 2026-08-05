@@ -92,6 +92,10 @@
 GET /api/v1/work-items?page=1&pageSize=20&keyword=文件&sortDirection=desc&assignedUserId={UUID}
 ```
 
+Admin Panel 與 WorkItem List 均使用 `assignedUserId` 篩選，但兩個畫面的前端狀態彼此獨立；切換其中一個畫面的指派人不會改變另一個畫面的查詢條件。
+
+`Admin` 為最高權限角色，可透過 `WorkItems.Manage` 修改或刪除任何建立人、任何指派人的 Work Item；前端不得再套用一般使用者的本人指派限制。
+
 ### Create Work Item Request
 
 ```json

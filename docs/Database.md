@@ -149,6 +149,7 @@ erDiagram
 - `WorkItems` 不保存全域 Status 或 `IsDeleted`；`DeletedAt`／`DeletedByUserId` 成對表示軟刪除。
 - `rowversion` 用於 Update 的 Optimistic Concurrency；不一致時 API 回傳 `409 Conflict`。
 - Work Item CRUD 與 `WorkItemHistories` after-snapshot 在同一 Transaction；個人確認不寫入 Work Item History。
+- `WorkItemHistories.ChangedByUserId` 記錄實際操作使用者；例如 Admin 編輯時會保存 Admin 的 `UserId`，查詢時可連接 `Accounts` 顯示 `LoginName = 'Admin'`，不重複保存可變動的帳號名稱。
 - FK 未設定 Cascade Delete，刪除行為由應用程式明確管理。
 - `IX_WorkItems_Active_CreatedAt` 支援有效項目預設排序；`IX_WorkItems_AssignedUserId` 支援指派篩選。
 
